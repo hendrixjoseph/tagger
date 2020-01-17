@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Tagger</string>
+
+    <!-- Preferences -->
+    <string name="amazon_affiliate_tags">Amazon Affiliate Tags</string>
+    <string name="tracking_id">Tracking ID</string>
+    <string name="set_tracking_id">Set Tracking ID</string>
+    <string name="sharing_history">Sharing History</string>
+</resources>
