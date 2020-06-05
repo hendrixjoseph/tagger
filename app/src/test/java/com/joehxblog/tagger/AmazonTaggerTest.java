@@ -1,11 +1,10 @@
 package com.joehxblog.tagger;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,16 +14,15 @@ class AmazonTaggerTest {
 
     static final String EXAMPLE_TAG = "example-20";
 
-    private AmazonTagger tagger = new AmazonTagger();
+    private final AmazonTagger tagger = new AmazonTagger(EXAMPLE_TAG);
 
-    @BeforeEach
-    void beforeEach() {
-        tagger.addTag("example-20");
-    }
+    static Stream<Arguments> textWithUrls() {
+        String beforeText = "This is some text before. ";
+        String afterText = " This is some text after.";
 
-    @Test
-    void testCurrentTag() {
-        assertEquals(EXAMPLE_TAG, tagger.getCurrentTag());
+        Function<Object, String> newString = o -> beforeText + o + afterText;
+
+        return urls().map(args -> arguments(newString.apply(args.get()[0]), newString.apply(args.get()[1])));
     }
 
     static Stream<Arguments> urls() {
@@ -38,15 +36,10 @@ class AmazonTaggerTest {
     }
 
     @ParameterizedTest
-    @MethodSource("urls")
-    void testTag(String input, String output) {
-        String tagged = tagger.tag(input);
+    @MethodSource({"urls","textWithUrls"})
+    void testTag(final String input, final String output) {
+        final String tagged = this.tagger.tag(input);
 
         assertEquals(output, tagged);
-    }
-
-    @Test
-    void test() {
-        assertEquals("","");
     }
 }

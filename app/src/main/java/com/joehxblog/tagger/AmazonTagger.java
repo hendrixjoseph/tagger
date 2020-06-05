@@ -1,46 +1,23 @@
 package com.joehxblog.tagger;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AmazonTagger {
 
-    final private List<String> tags = new ArrayList<>();
-    private String currentTag;
+    private String tag;
 
-    public void addTag(String tag) {
-        if (this.tags.isEmpty()) {
-            this.currentTag = tag;
-        }
-
-        this.tags.add(tag);
+    public AmazonTagger(String tag) {
+        this.tag = tag;
     }
 
-    public List<String> getTags() {
-        return tags;
-    }
-
-    public String getCurrentTag() {
-        return currentTag;
-    }
-
-    public void setCurrentTag(String tag) {
-        if (!tags.contains(tag)) {
-            tags.add(tag);
-        }
-
-        this.currentTag = tag;
-    }
-
-    public String tag(String string) {
-        Pattern pattern = Pattern.compile("(https:\\/\\/www\\.amazon\\.com[^\\s]*)");
-        Matcher matcher = pattern.matcher(string);
-        StringBuffer stringBuffer = new StringBuffer();
+    public String tag(final String string) {
+        final Pattern pattern = Pattern.compile("(https:\\/\\/www\\.amazon\\.com[^\\s]*)");
+        final Matcher matcher = pattern.matcher(string);
+        final StringBuffer stringBuffer = new StringBuffer();
 
         while (matcher.find()) {
-            String match = matcher.group();
+            final String match = matcher.group();
             if (!match.endsWith("png")) {
                 matcher.appendReplacement(stringBuffer, tagUrl(match));
             }
@@ -51,10 +28,10 @@ public class AmazonTagger {
         return stringBuffer.toString();
     }
 
-    private String tagUrl(String url) {
-        String tag = "tag=" + currentTag;
+    private String tagUrl(final String url) {
+        final String tag = "tag=" + this.tag;
 
-        String newUrl;
+        final String newUrl;
 
         if (url.contains("tag=")) {
             newUrl = url.replaceAll("tag=.+?(&|$)", tag + "$1");

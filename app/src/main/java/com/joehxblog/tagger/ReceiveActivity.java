@@ -30,7 +30,6 @@ public class ReceiveActivity extends AppCompatActivity {
 
         Intent receiveIntent = getIntent();
 
-        setUrlTextView(receiveIntent);
         final Intent sendIntent = tag(receiveIntent);
 
         Button tagItButton = this.<Button>findViewById(R.id.tagItButton);
@@ -80,50 +79,23 @@ public class ReceiveActivity extends AppCompatActivity {
             sendIntent.getCategories().addAll(receiveIntent.getCategories());
         }
 
+        TaggerPreferences prefs = new TaggerPreferences(this);
+
+        String savedTag = prefs.getDefaultTag();
+
+        AmazonTagger tagger = new AmazonTagger(savedTag);
+
         for (String key : receiveIntent.getExtras().keySet()) {
             Object extra = receiveIntent.getExtras().get(key);
 
             if (extra instanceof String) {
                 String string = (String) extra;
-                sendIntent.putExtra(key, tag(string));
+                String tag = tagger.tag(string);
+                sendIntent.putExtra(key, tag);
             }
         }
 
         return sendIntent;
-    }
-
-    private String tag(String string) {
-        Pattern pattern = Pattern.compile("(https:\\/\\/www\\.amazon\\.com[^\\s]*)");
-        Matcher matcher = pattern.matcher(string);
-        StringBuffer stringBuffer = new StringBuffer();
-
-        while (matcher.find()) {
-            String match = matcher.group();
-            if (!match.endsWith("png")) {
-                matcher.appendReplacement(stringBuffer, tagUrl(match));
-            }
-        }
-
-        matcher.appendTail(stringBuffer);
-
-        return stringBuffer.toString();
-    }
-
-    private String tagUrl(String url) {
-        TaggerPreferences prefs = new TaggerPreferences(this);
-
-        String savedTag = prefs.getDefaultTag();
-        String tag = "tag=" + savedTag;
-
-        String newUrl;
-
-        if (url.contains("?")) {
-            newUrl = url + "&" + tag;
-        } else {
-            newUrl = url + "?" + tag;
-        }
-
-        return newUrl;
     }
 
     private void setUrlTextView(Intent receiveIntent) {
