@@ -22,7 +22,8 @@ class AmazonTaggerTest {
 
         Function<Object, String> newString = o -> beforeText + o + afterText;
 
-        return urls().map(args -> arguments(newString.apply(args.get()[0]), newString.apply(args.get()[1])));
+        return urls().map(args -> arguments(newString.apply(args.get()[0]),
+                                            newString.apply(args.get()[1])));
     }
 
     static Stream<Arguments> urls() {

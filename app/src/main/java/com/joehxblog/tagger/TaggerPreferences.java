@@ -6,17 +6,17 @@ import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
 
 public class TaggerPreferences {
-    SharedPreferences sharedPreferences;
+    private final SharedPreferences sharedPreferences;
 
-    public TaggerPreferences(Context context) {
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+    public TaggerPreferences(final Context context) {
+        this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     public String getDefaultTag() {
-        return sharedPreferences.getString("tag-1", "");
+        return this.sharedPreferences.getString("tag-1", "");
     }
 
-    public String getTag(int key) {
-        return sharedPreferences.getString("tag-" + key, "");
+    public String getTag(final int key) {
+        return this.sharedPreferences.getString("tag-" + key, "");
     }
 }

@@ -51,15 +51,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         pref.setDialogTitle(R.string.set_tracking_id);
         pref.setKey("tag-" + key );
 
-        pref.setSummaryProvider(new Preference.SummaryProvider<EditTextPreference>() {
-            @Override
-            public CharSequence provideSummary(EditTextPreference preference) {
-                String tag = preference.getText();
-                if (TextUtils.isEmpty(tag)){
-                    return "Not set";
-                }
-                return "?tag=" + tag;
+        pref.setSummaryProvider((Preference.SummaryProvider<EditTextPreference>) preference -> {
+            String tag = preference.getText();
+            if (TextUtils.isEmpty(tag)){
+                return "Not set";
             }
+            return "?tag=" + tag;
         });
 
         return pref;
