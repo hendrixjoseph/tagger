@@ -15,6 +15,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class TaggerPreferences {
+    private static final String HISTORY_KEY = "history";
+
     private final SharedPreferences sharedPreferences;
 
     public TaggerPreferences(final Context context) {
@@ -40,11 +42,15 @@ public class TaggerPreferences {
         final History newItem = new History(title, url);
         newHistory.add(newItem.toString());
 
-        this.sharedPreferences.edit().putStringSet("history", newHistory).commit();
+        this.sharedPreferences.edit().putStringSet(HISTORY_KEY, newHistory).commit();
+    }
+
+    public void clearHistory() {
+        this.sharedPreferences.edit().remove(HISTORY_KEY).commit();
     }
 
     public List<History> getHistory() {
-        final Set<String> history = this.sharedPreferences.getStringSet("history", Collections.emptySet());
+        final Set<String> history = this.sharedPreferences.getStringSet(HISTORY_KEY, Collections.emptySet());
 
         return history.stream().map(thrown(History::new)).collect(Collectors.toList());
     }

@@ -39,6 +39,14 @@ class TaggerPreferencesTest {
     }
 
     @Test
+    void testClearHistory() {
+        prefs.createHistoryItem(TEST_TITLE,TEST_URL);
+        prefs.clearHistory();
+
+        assertEquals(0, this.prefs.getHistory().size());
+    }
+
+    @Test
     void testCreateHistoryItem_Same() {
         prefs.createHistoryItem(TEST_TITLE,TEST_URL);
         History history = prefs.getHistory().get(0);

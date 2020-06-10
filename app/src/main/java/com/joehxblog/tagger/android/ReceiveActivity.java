@@ -62,11 +62,6 @@ public class ReceiveActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
     }
 
-    private void clickedTagIt(final Intent sendIntent) {
-        final Intent shareIntent = Intent.createChooser(sendIntent, null);
-        startActivity(shareIntent);
-    }
-
     private void setUrlTextView(final Intent receiveIntent) {
         final String subject = receiveIntent.getStringExtra(Intent.EXTRA_SUBJECT);
         final String text = receiveIntent.getStringExtra(Intent.EXTRA_TEXT);

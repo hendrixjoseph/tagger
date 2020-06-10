@@ -1,6 +1,5 @@
 package com.joehxblog.tagger.android;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
@@ -9,7 +8,6 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragmentCompat;
 
-import com.joehxblog.tagger.History;
 import com.joehxblog.tagger.R;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
@@ -35,74 +33,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         super.onStart();
 
         final PreferenceCategory history = findPreference("sharing-history");
-        history.removeAll();
 
-        if (preferences.getHistory().isEmpty()) {
-            history.addPreference(createEmptyHistoryItem());
-        } else {
-            history.addPreference(createClearHistoryItem(history));
-            preferences.getHistory()
-                    .stream()
-                    .sorted()
-                    .map(this::createHistoryItem)
-                    .forEach(history::addPreference);
-        }
+        HistoryPreference historyPreference = new HistoryPreference(getContext(), history, preferences);
+        historyPreference.create();
     }
 
-    private Preference createClearHistoryItem(PreferenceCategory history) {
-        final Preference pref = new Preference(getContext());
-        pref.setTitle("Clear history.");
-        pref.setSummary("Clear history.");
 
-        pref.setOnPreferenceClickListener(l -> {
-            history.removeAll();
-            history.addPreference(createEmptyHistoryItem());
-            return true;
-        });
-
-        return pref;
-    }
-
-    private Preference createEmptyHistoryItem() {
-        final Preference pref = new Preference(getContext());
-        pref.setTitle("No history yet.");
-        pref.setSummary("No history yet.");
-
-        return pref;
-    }
-
-    private Preference createHistoryItem(History history) {
-        final Preference pref = new Preference(getContext());
-        pref.setTitle(history.getTitle());
-        pref.setSummary(history.getUrl());
-
-        final Intent intent = new Intent(getContext(), ReceiveActivity.class);
-        intent.setAction(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_SUBJECT, history.getTitle());
-        intent.putExtra(Intent.EXTRA_TEXT, history.getUrl());
-
-        pref.setIntent(intent);
-
-        return pref;
-    }
-
-    private Preference createHistoryItem(final String title, final String url, final int key) {
-        final Preference pref = new Preference(getContext());
-        pref.setTitle(title);
-        pref.setSummary(url);
-        pref.setKey("history-" + key);
-
-        final Intent intent = new Intent(getContext(), ReceiveActivity.class);
-        intent.setAction(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_SUBJECT, title);
-        intent.putExtra(Intent.EXTRA_TEXT, url);
-
-        pref.setIntent(intent);
-
-        return pref;
-    }
 
     private Preference createAssociateTagPreference(final int key) {
         final EditTextPreference pref = new EditTextPreference(getContext());

@@ -5,5 +5,11 @@
     <string name="amazon_affiliate_tags">Amazon Affiliate Tags</string>
     <string name="tracking_id">Tracking ID</string>
     <string name="set_tracking_id">Set Tracking ID</string>
+
+    <!-- History Preferences -->
     <string name="sharing_history">Sharing History</string>
+    <string name="clear_history">Clear history.</string>
+    <string name="no_history_yet">No history yet.</string>
+
+
 </resources>
