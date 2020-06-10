@@ -3,20 +3,29 @@ package com.joehxblog.tagger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class History {
+import java.util.Date;
+
+public class History implements Comparable<History> {
+    private static final String DATETIME_KEY = "datetime";
+    private static final String URL_KEY = "url";
+    private static final String TITLE_KEY = "title";
+
+    private final long datetime;
     private final String title;
     private final String url;
 
     public History(final String title, final String url) {
         this.title = title;
         this.url = url;
+        this.datetime = new Date().getTime();
     }
 
     public History(final String json) throws JSONException {
         final JSONObject object = new JSONObject(json);
 
-        this.title = object.getString("title");
-        this.url = object.getString("url");
+        this.title = object.getString(TITLE_KEY);
+        this.url = object.getString(URL_KEY);
+        this.datetime = object.getLong(DATETIME_KEY);
     }
     public String getTitle() {
         return this.title;
@@ -31,12 +40,22 @@ public class History {
         final JSONObject object = new JSONObject();
 
         try {
-            object.put("title", this.title);
-            object.put("url", this.url);
+            object.put(TITLE_KEY, this.title);
+            object.put(URL_KEY, this.url);
+            object.put(DATETIME_KEY, this.datetime);
         } catch (final JSONException e) {
             e.printStackTrace();
         }
 
         return object.toString();
+    }
+
+    @Override
+    public int compareTo(History o) {
+        if (o == null) {
+            return -1;
+        } else {
+            return (int) (o.datetime - this.datetime);
+        }
     }
 }

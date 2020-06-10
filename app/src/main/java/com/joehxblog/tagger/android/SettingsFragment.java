@@ -38,26 +38,43 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         history.removeAll();
 
         if (preferences.getHistory().isEmpty()) {
-            final Preference pref = new Preference(getContext());
-            pref.setTitle("No history yet.");
-            pref.setSummary("No history yet.");
-            //pref.setKey("history-" + key);
-
-            history.addPreference(pref);
-
+            history.addPreference(createEmptyHistoryItem());
         } else {
+            history.addPreference(createClearHistoryItem(history));
             preferences.getHistory()
                     .stream()
+                    .sorted()
                     .map(this::createHistoryItem)
                     .forEach(history::addPreference);
         }
+    }
+
+    private Preference createClearHistoryItem(PreferenceCategory history) {
+        final Preference pref = new Preference(getContext());
+        pref.setTitle("Clear history.");
+        pref.setSummary("Clear history.");
+
+        pref.setOnPreferenceClickListener(l -> {
+            history.removeAll();
+            history.addPreference(createEmptyHistoryItem());
+            return true;
+        });
+
+        return pref;
+    }
+
+    private Preference createEmptyHistoryItem() {
+        final Preference pref = new Preference(getContext());
+        pref.setTitle("No history yet.");
+        pref.setSummary("No history yet.");
+
+        return pref;
     }
 
     private Preference createHistoryItem(History history) {
         final Preference pref = new Preference(getContext());
         pref.setTitle(history.getTitle());
         pref.setSummary(history.getUrl());
-        //pref.setKey("history-" + key);
 
         final Intent intent = new Intent(getContext(), ReceiveActivity.class);
         intent.setAction(Intent.ACTION_SEND);
