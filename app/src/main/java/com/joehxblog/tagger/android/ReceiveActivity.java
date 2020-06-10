@@ -1,4 +1,4 @@
-package com.joehxblog.tagger;
+package com.joehxblog.tagger.android;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,33 +11,40 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.joehxblog.tagger.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.joehxblog.tagger.SettingsFragment.MAX_TAGS;
+import static com.joehxblog.tagger.android.SettingsFragment.MAX_TAGS;
 
 public class ReceiveActivity extends AppCompatActivity {
 
-    private final TaggerPreferences prefs = new TaggerPreferences(this);
+    private TaggerPreferences prefs;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receive);
 
+        prefs = new TaggerPreferences(this);
+
         populateSpinner();
 
         final Intent receiveIntent = getIntent();
 
-        final Intent sendIntent = tag(receiveIntent);
+        IntentTagger intentTagger = new IntentTagger(receiveIntent);
 
         final Button tagItButton = this.findViewById(R.id.tagItButton);
 
-        tagItButton.setOnClickListener(v -> clickedTagIt(sendIntent));
+        tagItButton.setOnClickListener(v -> intentTagger.send(this, this.getTag()));
+    }
+
+    private String getTag() {
+        return prefs.getDefaultTag();
     }
 
     private void populateSpinner() {
-        final TaggerPreferences prefs = new TaggerPreferences(this);
 
         final List<String> tags = new ArrayList<>();
 
@@ -58,33 +65,6 @@ public class ReceiveActivity extends AppCompatActivity {
     private void clickedTagIt(final Intent sendIntent) {
         final Intent shareIntent = Intent.createChooser(sendIntent, null);
         startActivity(shareIntent);
-    }
-
-    private Intent tag(final Intent receiveIntent) {
-        final Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtras(receiveIntent);
-        sendIntent.setType(receiveIntent.getType());
-
-        if (receiveIntent.getCategories() != null) {
-            sendIntent.getCategories().addAll(receiveIntent.getCategories());
-        }
-
-        final String savedTag = prefs.getDefaultTag();
-
-        final AmazonTagger tagger = new AmazonTagger(savedTag);
-
-        for (final String key : receiveIntent.getExtras().keySet()) {
-            final Object extra = receiveIntent.getExtras().get(key);
-
-            if (extra instanceof String) {
-                final String string = (String) extra;
-                final String tag = tagger.tag(string);
-                sendIntent.putExtra(key, tag);
-            }
-        }
-
-        return sendIntent;
     }
 
     private void setUrlTextView(final Intent receiveIntent) {

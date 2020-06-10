@@ -1,9 +1,11 @@
-package com.joehxblog.tagger;
+package com.joehxblog.tagger.android;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import androidx.preference.PreferenceManager;
+
+import com.joehxblog.tagger.History;
 
 import java.util.Collections;
 import java.util.HashSet;

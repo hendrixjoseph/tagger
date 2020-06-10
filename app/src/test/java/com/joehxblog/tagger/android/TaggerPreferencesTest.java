@@ -1,6 +1,7 @@
-package com.joehxblog.tagger;
+package com.joehxblog.tagger.android;
 
 import com.joehxblog.mocked.MockSharedPreferences;
+import com.joehxblog.tagger.History;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

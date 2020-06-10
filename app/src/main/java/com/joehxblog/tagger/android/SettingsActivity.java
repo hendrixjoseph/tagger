@@ -1,8 +1,10 @@
-package com.joehxblog.tagger;
+package com.joehxblog.tagger.android;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.joehxblog.tagger.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
