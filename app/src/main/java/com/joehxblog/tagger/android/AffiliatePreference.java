@@ -32,7 +32,7 @@ public class AffiliatePreference {
     }
 
     private Preference createAssociateTagPreference(final String tag) {
-        final EditTextPreference pref = new EditTextPreference(this.context);
+        final MyEditTextPreference pref = new MyEditTextPreference(this.context);
         pref.setPersistent(false);
         pref.setTitle(R.string.tracking_id);
         pref.setDialogTitle(R.string.set_tracking_id);
@@ -43,6 +43,8 @@ public class AffiliatePreference {
         if (preferences.isDefaultTag(tag)) {
             pref.setIcon(R.drawable.ic_launcher_background);
         }
+
+        pref.setLongClickListener(v -> onPreferenceChange(tag, ""));
 
         pref.setSummaryProvider((Preference.SummaryProvider<EditTextPreference>) this::getSummaryText);
 
