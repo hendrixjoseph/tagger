@@ -1,4 +1,4 @@
-package com.joehxblog.tagger.android;
+package com.joehxblog.tagger.android.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,11 +12,13 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.joehxblog.tagger.R;
+import com.joehxblog.tagger.android.IntentTagger;
+import com.joehxblog.tagger.android.TaggerPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.joehxblog.tagger.android.SettingsFragment.MAX_TAGS;
+import static com.joehxblog.tagger.android.activity.SettingsFragment.MAX_TAGS;
 
 public class ReceiveActivity extends AppCompatActivity {
 

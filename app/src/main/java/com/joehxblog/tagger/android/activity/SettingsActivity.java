@@ -1,4 +1,4 @@
-package com.joehxblog.tagger.android;
+package com.joehxblog.tagger.android.activity;
 
 import android.os.Bundle;
 

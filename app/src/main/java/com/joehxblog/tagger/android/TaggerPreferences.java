@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 public class TaggerPreferences {
     private static final String HISTORY_KEY = "history";
+    private static final String TAGS_KEY = "tags";
 
     private final SharedPreferences sharedPreferences;
 
@@ -35,14 +36,17 @@ public class TaggerPreferences {
         return this.sharedPreferences.getString("tag-" + key, "");
     }
 
+    public Set<String> getTags() {
+        return this.sharedPreferences.getStringSet(TAGS_KEY, Collections.emptySet());
+    }
+
+    public void addTag(String tag) {
+        add(TAGS_KEY, tag);
+    }
+
     public void createHistoryItem(final String title, final String url) {
-        final Set<String> history = this.sharedPreferences.getStringSet("history", Collections.emptySet());
-
-        final Set<String> newHistory = new HashSet<>(history);
         final History newItem = new History(title, url);
-        newHistory.add(newItem.toString());
-
-        this.sharedPreferences.edit().putStringSet(HISTORY_KEY, newHistory).commit();
+        add(HISTORY_KEY, newItem.toString());
     }
 
     public void clearHistory() {
@@ -53,6 +57,15 @@ public class TaggerPreferences {
         final Set<String> history = this.sharedPreferences.getStringSet(HISTORY_KEY, Collections.emptySet());
 
         return history.stream().map(thrown(History::new)).collect(Collectors.toList());
+    }
+
+    private void add(String key, String value) {
+        final Set<String> set = this.sharedPreferences.getStringSet(key, Collections.emptySet());
+
+        final Set<String> newSet = new HashSet<>(set);
+        newSet.add(value);
+
+        this.sharedPreferences.edit().putStringSet(key, newSet).commit();
     }
 
     private <T, R, E extends Exception> Function<T,R> thrown(final FunctionWithException<T,R,E> function) {

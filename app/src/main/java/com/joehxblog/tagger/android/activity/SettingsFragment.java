@@ -1,4 +1,4 @@
-package com.joehxblog.tagger.android;
+package com.joehxblog.tagger.android.activity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,6 +9,9 @@ import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.joehxblog.tagger.R;
+import com.joehxblog.tagger.android.AffiliatePreference;
+import com.joehxblog.tagger.android.HistoryPreference;
+import com.joehxblog.tagger.android.TaggerPreferences;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
     public static final int MAX_TAGS = 4;
@@ -23,10 +26,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         final PreferenceCategory affiliateTags = findPreference("amazon-affiliate-tags");
 
-        for (int i = 0; i < MAX_TAGS; i++) {
-            final Preference pref = createAssociateTagPreference(i);
-            affiliateTags.addPreference(pref);
-        }
+        AffiliatePreference affiliatePreference = new AffiliatePreference(getContext(), affiliateTags, preferences);
+        affiliatePreference.create();
+
+//        for (int i = 0; i < MAX_TAGS; i++) {
+//            final Preference pref = createAssociateTagPreference(i);
+//            affiliateTags.addPreference(pref);
+//        }
     }
 
     public void onStart() {

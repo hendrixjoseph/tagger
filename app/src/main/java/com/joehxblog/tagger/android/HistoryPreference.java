@@ -8,6 +8,7 @@ import androidx.preference.PreferenceCategory;
 
 import com.joehxblog.tagger.History;
 import com.joehxblog.tagger.R;
+import com.joehxblog.tagger.android.activity.ReceiveActivity;
 
 public class HistoryPreference {
 
@@ -37,15 +38,15 @@ public class HistoryPreference {
     }
 
     private Preference createClearHistoryItem(final PreferenceCategory history) {
-        final Preference pref = new Preference(this.context);
+        final OkCancelDialogPreference pref = new OkCancelDialogPreference(this.context);
         pref.setTitle(R.string.clear_history);
+        pref.setDialogTitle("Clear history?");
         pref.setSummary(R.string.clear_history);
 
-        pref.setOnPreferenceClickListener(l -> {
+        pref.setPositiveListener((d, i) ->  {
             this.preferences.clearHistory();
             history.removeAll();
             history.addPreference(createEmptyHistoryItem());
-            return true;
         });
 
         return pref;
