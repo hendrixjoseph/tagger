@@ -18,6 +18,8 @@ import static com.joehxblog.tagger.SettingsFragment.MAX_TAGS;
 
 public class ReceiveActivity extends AppCompatActivity {
 
+    private final TaggerPreferences prefs = new TaggerPreferences(this);
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +50,6 @@ public class ReceiveActivity extends AppCompatActivity {
         }
 
         final SpinnerAdapter adapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, tags);
-        //SpinnerAdapter adapter = new ArrayAdapter(this, R.id.tag_spinner, tags);
 
         final Spinner spinner = this.findViewById(R.id.tag_spinner);
         spinner.setAdapter(adapter);
@@ -68,8 +69,6 @@ public class ReceiveActivity extends AppCompatActivity {
         if (receiveIntent.getCategories() != null) {
             sendIntent.getCategories().addAll(receiveIntent.getCategories());
         }
-
-        final TaggerPreferences prefs = new TaggerPreferences(this);
 
         final String savedTag = prefs.getDefaultTag();
 

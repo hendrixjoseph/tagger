@@ -17,10 +17,10 @@ class AmazonTaggerTest {
     private final AmazonTagger tagger = new AmazonTagger(EXAMPLE_TAG);
 
     static Stream<Arguments> textWithUrls() {
-        String beforeText = "This is some text before. ";
-        String afterText = " This is some text after.";
+        final String beforeText = "This is some text before. ";
+        final String afterText = " This is some text after.";
 
-        Function<Object, String> newString = o -> beforeText + o + afterText;
+        final Function<Object, String> newString = o -> beforeText + o + afterText;
 
         return urls().map(args -> arguments(newString.apply(args.get()[0]),
                                             newString.apply(args.get()[1])));
