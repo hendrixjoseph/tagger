@@ -11,8 +11,6 @@ import java.util.Optional;
 public class OkCancelDialogPreference extends DialogPreference {
     private DialogInterface.OnClickListener positiveListener = (d, i) -> { };
     private DialogInterface.OnClickListener negativeListener = (d, i) -> { };
-    private String positiveText = "Ok";
-    private String negativeText = "Cancel";
 
     public OkCancelDialogPreference(final Context context) {
         super(context);
@@ -31,8 +29,8 @@ public class OkCancelDialogPreference extends DialogPreference {
         builder.setMessage(this.getDialogMessage())
                 .setTitle(title)
                 .setIcon(this.getIcon())
-                .setPositiveButton(positiveText, positiveListener)
-                .setNegativeButton(negativeText, negativeListener)
+                .setPositiveButton(getPositiveButtonText(), positiveListener)
+                .setNegativeButton(getNegativeButtonText(), negativeListener)
                 .show();
     }
 }

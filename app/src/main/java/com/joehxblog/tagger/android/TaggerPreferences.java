@@ -28,8 +28,38 @@ public class TaggerPreferences {
         this.sharedPreferences = sharedPreferences;
     }
 
+    public boolean isDefaultTag(String tag) {
+        String defaultTag = getDefaultTag();
+
+        if (defaultTag.isEmpty()) {
+            setDefaultTag(tag);
+            return true;
+        } else {
+            return defaultTag.equals(tag);
+        }
+    }
+
     public String getDefaultTag() {
-        return this.sharedPreferences.getString("tag-1", "");
+        return this.sharedPreferences.getString("default-tag", "");
+    }
+
+    public void setDefaultTag(String tag) {
+        this.sharedPreferences.edit().putString("default-tag", tag).commit();
+    }
+
+    public void replaceTag(final String oldTag, final String newTag) {
+        final Set<String> newSet = getTags()
+                .stream()
+                .map(tag -> oldTag.equals(tag) ? newTag : tag)
+                .collect(Collectors.toSet());
+
+        this.sharedPreferences.edit().putStringSet(TAGS_KEY, newSet).commit();
+    }
+
+    public void removeTag(final String tag) {
+        final Set<String> newSet = new HashSet<>(getTags());
+        newSet.remove(tag);
+        this.sharedPreferences.edit().putStringSet(TAGS_KEY, newSet).commit();
     }
 
     public String getTag(final int key) {
@@ -40,8 +70,12 @@ public class TaggerPreferences {
         return this.sharedPreferences.getStringSet(TAGS_KEY, Collections.emptySet());
     }
 
-    public void addTag(String tag) {
+    public void addTag(final String tag) {
         add(TAGS_KEY, tag);
+
+        if (getDefaultTag().isEmpty()) {
+            setDefaultTag(tag);
+        }
     }
 
     public void createHistoryItem(final String title, final String url) {
@@ -59,7 +93,7 @@ public class TaggerPreferences {
         return history.stream().map(thrown(History::new)).collect(Collectors.toList());
     }
 
-    private void add(String key, String value) {
+    private void add(final String key, final String value) {
         final Set<String> set = this.sharedPreferences.getStringSet(key, Collections.emptySet());
 
         final Set<String> newSet = new HashSet<>(set);

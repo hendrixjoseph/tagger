@@ -9,6 +9,7 @@
     <!-- History Preferences -->
     <string name="sharing_history">Sharing History</string>
     <string name="clear_history">Clear history.</string>
+    <string name="confirm_clear_history">Clear history?</string>
     <string name="no_history_yet">No history yet.</string>
 
 

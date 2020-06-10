@@ -40,7 +40,7 @@ public class HistoryPreference {
     private Preference createClearHistoryItem(final PreferenceCategory history) {
         final OkCancelDialogPreference pref = new OkCancelDialogPreference(this.context);
         pref.setTitle(R.string.clear_history);
-        pref.setDialogTitle("Clear history?");
+        pref.setDialogTitle(R.string.confirm_clear_history);
         pref.setSummary(R.string.clear_history);
 
         pref.setPositiveListener((d, i) ->  {
