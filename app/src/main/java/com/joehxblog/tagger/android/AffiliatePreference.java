@@ -41,6 +41,10 @@ public class AffiliatePreference extends Preference {
     }
 
     public void setDefaultTag(String tag) {
+        if (!getTags().contains(tag)) {
+             addTag(tag);
+        }
+
         this.getSharedPreferences().edit().putString(DEFAULT_TAG_KEY, tag).commit();
     }
 

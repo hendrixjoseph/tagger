@@ -70,7 +70,7 @@ class AffiliatePreferenceTest {
     }
 
     @Test
-    void testDefaultTag() {
+    void testIsDefaultTag() {
         this.prefs.addTag(TEST_TAG);
 
         assertTrue(this.prefs.isDefaultTag(TEST_TAG));
@@ -78,7 +78,7 @@ class AffiliatePreferenceTest {
 
     @ParameterizedTest
     @ValueSource(ints = { 1, 2, 3 })
-    void testDefaultTag(final int count) {
+    void testIsDefaultTag(final int count) {
         this.prefs.addTag(TEST_TAG);
 
         IntStream.range(0, count)
@@ -86,6 +86,49 @@ class AffiliatePreferenceTest {
 
         assertAll(
                 () -> assertTrue(this.prefs.isDefaultTag(TEST_TAG)),
-                () -> assertTrue(IntStream.range(0, count).mapToObj(number -> TEST_TAG + number).noneMatch(this.prefs::isDefaultTag)));
+                () -> assertTrue(IntStream.range(0, count)
+                        .mapToObj(number -> TEST_TAG + number)
+                        .noneMatch(this.prefs::isDefaultTag)));
+    }
+
+    @Test
+    void testIsDefaultTag_Empty() {
+        assertFalse(this.prefs.isDefaultTag(""));
+    }
+
+    @Test
+    void testSetDefaultTag() {
+        this.prefs.setDefaultTag(TEST_TAG);
+
+        assertAll(
+                () -> assertTrue(this.prefs.isDefaultTag(TEST_TAG)),
+                () -> assertTrue(this.prefs.getTags().contains(TEST_TAG))
+        );
+    }
+
+    @Test
+    void testIsDefaultTag_Only() {
+        this.prefs.isDefaultTag(TEST_TAG);
+
+        assertAll(
+                () -> assertTrue(this.prefs.isDefaultTag(TEST_TAG)),
+                () -> assertTrue(this.prefs.getTags().contains(TEST_TAG))
+        );
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = { 1, 2, 3 })
+    void testIsDefaultTag_Multiple(final int count) {
+        IntStream.range(0, count)
+                .forEach(number -> this.prefs.addTag(TEST_TAG + number));
+
+        this.prefs.addTag(TEST_TAG);
+        this.prefs.setDefaultTag(TEST_TAG);
+
+        assertAll(
+                () -> assertTrue(this.prefs.isDefaultTag(TEST_TAG)),
+                () -> assertTrue(IntStream.range(0, count)
+                        .mapToObj(number -> TEST_TAG + number)
+                        .noneMatch(this.prefs::isDefaultTag)));
     }
 }
