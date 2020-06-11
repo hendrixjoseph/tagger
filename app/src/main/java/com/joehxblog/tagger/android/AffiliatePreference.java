@@ -2,6 +2,7 @@ package com.joehxblog.tagger.android;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 import com.joehxblog.android.preference.Preference;
 
@@ -25,7 +26,9 @@ public class AffiliatePreference extends Preference {
     public boolean isDefaultTag(String tag) {
         String defaultTag = getDefaultTag();
 
-        if (defaultTag.isEmpty()) {
+        if (TextUtils.isEmpty(tag)) {
+            return false;
+        } else if (defaultTag.isEmpty() || !getTags().contains(defaultTag)) {
             setDefaultTag(tag);
             return true;
         } else {

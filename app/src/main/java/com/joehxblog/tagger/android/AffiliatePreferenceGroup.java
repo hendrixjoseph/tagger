@@ -45,13 +45,20 @@ public class AffiliatePreferenceGroup {
             pref.setIcon(R.drawable.ic_launcher_background);
         }
 
-        pref.setLongClickListener(v -> onPreferenceChange(tag, ""));
+        pref.setLongClickListener(v -> setDefaultTag(tag));
 
         pref.setSummaryProvider((Preference.SummaryProvider<EditTextPreference>) this::getSummaryText);
 
         pref.setOnPreferenceChangeListener((p, n) -> onPreferenceChange(tag, n.toString()));
 
         return pref;
+    }
+
+    private boolean setDefaultTag(String tag) {
+        preferences.setDefaultTag(tag);
+        refresh();
+
+        return true;
     }
 
     private String getSummaryText(final EditTextPreference pref) {
@@ -73,9 +80,13 @@ public class AffiliatePreferenceGroup {
             this.preferences.replaceTag(oldTag, newTag);
         }
 
-        this.affiliate.removeAll();
-        create();
+        refresh();
 
         return false;
+    }
+
+    private void refresh() {
+        this.affiliate.removeAll();
+        create();
     }
 }
