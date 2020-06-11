@@ -7,7 +7,7 @@ import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 
-import com.joehxblog.android.preference.MyEditTextPreference;
+import com.joehxblog.android.preference.LongClickableEditTextPreference;
 import com.joehxblog.tagger.R;
 
 import java.util.Optional;
@@ -33,7 +33,7 @@ public class AffiliatePreference {
     }
 
     private Preference createAssociateTagPreference(final String tag) {
-        final MyEditTextPreference pref = new MyEditTextPreference(this.context);
+        final LongClickableEditTextPreference pref = new LongClickableEditTextPreference(this.context);
         pref.setPersistent(false);
         pref.setTitle(R.string.tracking_id);
         pref.setDialogTitle(R.string.set_tracking_id);
