@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class AffiliatePreference extends Preference {
+    private static final String DEFAULT_TAG_KEY = "default-tag";
     private static final String TAGS_KEY = "tags";
 
     public AffiliatePreference(final Context context) {
@@ -33,11 +34,11 @@ public class AffiliatePreference extends Preference {
     }
 
     public String getDefaultTag() {
-        return this.getSharedPreferences().getString("default-tag", "");
+        return this.getSharedPreferences().getString(DEFAULT_TAG_KEY, "");
     }
 
     public void setDefaultTag(String tag) {
-        this.getSharedPreferences().edit().putString("default-tag", tag).commit();
+        this.getSharedPreferences().edit().putString(DEFAULT_TAG_KEY, tag).commit();
     }
 
     public void replaceTag(final String oldTag, final String newTag) {
@@ -53,10 +54,6 @@ public class AffiliatePreference extends Preference {
         final Set<String> newSet = new HashSet<>(getTags());
         newSet.remove(tag);
         this.getSharedPreferences().edit().putStringSet(TAGS_KEY, newSet).commit();
-    }
-
-    public String getTag(final int key) {
-        return this.getSharedPreferences().getString("tag-" + key, "");
     }
 
     public Set<String> getTags() {
