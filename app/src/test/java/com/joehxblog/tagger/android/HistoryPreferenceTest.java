@@ -12,37 +12,16 @@ import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class TaggerPreferencesTest {
+class HistoryPreferenceTest {
 
     private static final String TEST_TITLE = "TITLE";
     private static final String TEST_URL = "URL";
 
-    private TaggerPreferences prefs;
+    private HistoryPreference prefs;
 
     @BeforeEach
     void beforeEach() {
-        this.prefs = new TaggerPreferences(new MockSharedPreferences());
-    }
-
-    @Test
-    void testGetTags() {
-        assertEquals(0, this.prefs.getTags().size());
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = { 1, 2, 3 })
-    void testAddTag(final int count) {
-        IntStream.range(0, count)
-                .forEach(number -> this.prefs.addTag("tag" + number));
-
-        assertEquals(count, this.prefs.getTags().size());
-    }
-
-    @Test
-    void testRemoveTag() {
-        this.prefs.addTag("tag");
-        this.prefs.removeTag("tag");
-        assertEquals(0, this.prefs.getTags().size());
+        this.prefs = new HistoryPreference(new MockSharedPreferences());
     }
 
     @Test

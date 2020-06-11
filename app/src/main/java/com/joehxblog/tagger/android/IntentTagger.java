@@ -20,7 +20,7 @@ public class IntentTagger {
     public void send(Activity activity, String tag) {
         Intent sendIntent = getTaggedSendIntent(tag);
 
-        TaggerPreferences prefs = new TaggerPreferences(activity);
+        HistoryPreference prefs = new HistoryPreference(activity);
         prefs.createHistoryItem(subject, text);
 
         activity.startActivity(sendIntent);

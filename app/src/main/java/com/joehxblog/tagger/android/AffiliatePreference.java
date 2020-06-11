@@ -1,81 +1,73 @@
 package com.joehxblog.tagger.android;
 
 import android.content.Context;
-import android.text.TextUtils;
+import android.content.SharedPreferences;
 
-import androidx.preference.EditTextPreference;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceCategory;
+import com.joehxblog.android.preference.Preference;
 
-import com.joehxblog.android.preference.LongClickableEditTextPreference;
-import com.joehxblog.tagger.R;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-import java.util.Optional;
+public class AffiliatePreference extends Preference {
+    private static final String TAGS_KEY = "tags";
 
-public class AffiliatePreference {
-    private final TaggerPreferences preferences;
-    private final Context context;
-    private final PreferenceCategory affiliate;
-
-    public AffiliatePreference(final Context context, final PreferenceCategory affiliate, final TaggerPreferences preferences) {
-        this.context = context;
-        this.affiliate = affiliate;
-        this.preferences = preferences;
+    public AffiliatePreference(final Context context) {
+        super(context);
     }
 
-    public void create() {
-        this.preferences.getTags()
-                .stream()
-                .map(this::createAssociateTagPreference)
-                .forEach(this.affiliate::addPreference);
-
-        this.affiliate.addPreference(createAssociateTagPreference(null));
+    public AffiliatePreference(final SharedPreferences sharedPreferences) {
+        super(sharedPreferences);
     }
 
-    private Preference createAssociateTagPreference(final String tag) {
-        final LongClickableEditTextPreference pref = new LongClickableEditTextPreference(this.context);
-        pref.setPersistent(false);
-        pref.setTitle(R.string.tracking_id);
-        pref.setDialogTitle(R.string.set_tracking_id);
-        pref.setSummary(tag);
-        pref.setDefaultValue(tag);
-        pref.setKey(Optional.ofNullable(tag).orElse("new-tag"));
+    public boolean isDefaultTag(String tag) {
+        String defaultTag = getDefaultTag();
 
-        if (preferences.isDefaultTag(tag)) {
-            pref.setIcon(R.drawable.ic_launcher_background);
-        }
-
-        pref.setLongClickListener(v -> onPreferenceChange(tag, ""));
-
-        pref.setSummaryProvider((Preference.SummaryProvider<EditTextPreference>) this::getSummaryText);
-
-        pref.setOnPreferenceChangeListener((p, n) -> onPreferenceChange(tag, n.toString()));
-
-        return pref;
-    }
-
-    private String getSummaryText(final EditTextPreference pref) {
-        final String text = ((EditTextPreference)pref).getText();
-
-        if (TextUtils.isEmpty(text)) {
-            return "Not set";
-        }
-
-        return "?tag=" + text;
-    }
-
-    private boolean onPreferenceChange(final String oldTag, final String newTag) {
-        if (oldTag == null) {
-            this.preferences.addTag(newTag);
-        } else if (TextUtils.isEmpty(newTag)){
-            this.preferences.removeTag(oldTag);
+        if (defaultTag.isEmpty()) {
+            setDefaultTag(tag);
+            return true;
         } else {
-            this.preferences.replaceTag(oldTag, newTag);
+            return defaultTag.equals(tag);
         }
+    }
 
-        this.affiliate.removeAll();
-        create();
+    public String getDefaultTag() {
+        return this.getSharedPreferences().getString("default-tag", "");
+    }
 
-        return false;
+    public void setDefaultTag(String tag) {
+        this.getSharedPreferences().edit().putString("default-tag", tag).commit();
+    }
+
+    public void replaceTag(final String oldTag, final String newTag) {
+        final Set<String> newSet = getTags()
+                .stream()
+                .map(tag -> oldTag.equals(tag) ? newTag : tag)
+                .collect(Collectors.toSet());
+
+        this.getSharedPreferences().edit().putStringSet(TAGS_KEY, newSet).commit();
+    }
+
+    public void removeTag(final String tag) {
+        final Set<String> newSet = new HashSet<>(getTags());
+        newSet.remove(tag);
+        this.getSharedPreferences().edit().putStringSet(TAGS_KEY, newSet).commit();
+    }
+
+    public String getTag(final int key) {
+        return this.getSharedPreferences().getString("tag-" + key, "");
+    }
+
+    public Set<String> getTags() {
+        return this.getSharedPreferences().getStringSet(TAGS_KEY, Collections.emptySet());
+    }
+
+    public void addTag(final String tag) {
+        add(TAGS_KEY, tag);
+
+        if (getDefaultTag().isEmpty()) {
+            setDefaultTag(tag);
+        }
     }
 }

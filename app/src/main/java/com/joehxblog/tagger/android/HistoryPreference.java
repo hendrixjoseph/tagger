@@ -1,79 +1,58 @@
 package com.joehxblog.tagger.android;
 
 import android.content.Context;
-import android.content.Intent;
+import android.content.SharedPreferences;
 
-import androidx.preference.Preference;
-import androidx.preference.PreferenceCategory;
-
-import com.joehxblog.android.preference.OkCancelDialogPreference;
+import com.joehxblog.android.preference.Preference;
 import com.joehxblog.tagger.History;
-import com.joehxblog.tagger.R;
-import com.joehxblog.tagger.android.activity.ReceiveActivity;
 
-public class HistoryPreference {
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
-    private final PreferenceCategory history;
-    private final TaggerPreferences preferences;
-    private final Context context;
+public class HistoryPreference extends Preference {
+    private static final String HISTORY_KEY = "history";
 
-    public HistoryPreference(final Context context, final PreferenceCategory history, final TaggerPreferences preferences) {
-        this.context = context;
-        this.history = history;
-        this.preferences = preferences;
+    public HistoryPreference(final Context context) {
+        super(context);
     }
 
-    public void create() {
-        this.history.removeAll();
-
-        if (this.preferences.getHistory().isEmpty()) {
-            this.history.addPreference(createEmptyHistoryItem());
-        } else {
-            this.history.addPreference(createClearHistoryItem(this.history));
-            this.preferences.getHistory()
-                    .stream()
-                    .sorted()
-                    .map(this::createHistoryItem)
-                    .forEach(this.history::addPreference);
-        }
+    public HistoryPreference(final SharedPreferences sharedPreferences) {
+        super(sharedPreferences);
     }
 
-    private Preference createClearHistoryItem(final PreferenceCategory history) {
-        final OkCancelDialogPreference pref = new OkCancelDialogPreference(this.context);
-        pref.setTitle(R.string.clear_history);
-        pref.setDialogTitle(R.string.confirm_clear_history);
-        pref.setSummary(R.string.clear_history);
-
-        pref.setPositiveListener((d, i) ->  {
-            this.preferences.clearHistory();
-            history.removeAll();
-            history.addPreference(createEmptyHistoryItem());
-        });
-
-        return pref;
+    public void createHistoryItem(final String title, final String url) {
+        final History newItem = new History(title, url);
+        add(HISTORY_KEY, newItem.toString());
     }
 
-    private Preference createEmptyHistoryItem() {
-        final Preference pref = new Preference(this.context);
-        pref.setTitle(R.string.no_history_yet);
-        pref.setSummary(R.string.no_history_yet);
-
-        return pref;
+    public void clearHistory() {
+        this.getSharedPreferences().edit().remove(HISTORY_KEY).commit();
     }
 
-    private Preference createHistoryItem(final History history) {
-        final Preference pref = new Preference(this.context);
-        pref.setTitle(history.getTitle());
-        pref.setSummary(history.getUrl());
+    public List<History> getHistory() {
+        final Set<String> history = this.getSharedPreferences()
+                .getStringSet(HISTORY_KEY, Collections.emptySet());
 
-        final Intent intent = new Intent(this.context, ReceiveActivity.class);
-        intent.setAction(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_SUBJECT, history.getTitle());
-        intent.putExtra(Intent.EXTRA_TEXT, history.getUrl());
+        return history.stream().map(thrown(History::new)).collect(Collectors.toList());
+    }
 
-        pref.setIntent(intent);
+    private <T, R, E extends Exception> Function<T,R> thrown(final FunctionWithException<T,R,E> function) {
+        return arg ->  {
+            try {
+                return function.apply(arg);
+            } catch (final Exception e) {
+                final RuntimeException re = new RuntimeException(e);
+                re.printStackTrace();
+                throw re;
+            }
+        };
+    }
 
-        return pref;
+    interface FunctionWithException<T, R, E extends Exception> {
+
+        R apply(T t) throws E;
     }
 }
