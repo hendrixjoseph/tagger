@@ -6,6 +6,7 @@ import android.content.Intent;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 
+import com.joehxblog.android.preference.OkCancelDialogPreference;
 import com.joehxblog.tagger.History;
 import com.joehxblog.tagger.R;
 import com.joehxblog.tagger.android.activity.ReceiveActivity;

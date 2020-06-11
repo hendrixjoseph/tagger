@@ -1,4 +1,4 @@
-package com.joehxblog.tagger.android;
+package com.joehxblog.android.preference;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -18,6 +18,10 @@ public class OkCancelDialogPreference extends DialogPreference {
 
     public void setPositiveListener(DialogInterface.OnClickListener listener) {
         this.positiveListener = listener;
+    }
+
+    public void setNegativeListener(DialogInterface.OnClickListener listener) {
+        this.negativeListener = listener;
     }
 
     @Override

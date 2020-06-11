@@ -7,6 +7,7 @@ import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 
+import com.joehxblog.android.preference.MyEditTextPreference;
 import com.joehxblog.tagger.R;
 
 import java.util.Optional;
