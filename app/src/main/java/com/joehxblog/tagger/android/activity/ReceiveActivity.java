@@ -7,10 +7,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.joehxblog.tagger.R;
 import com.joehxblog.tagger.android.AffiliatePreference;
 import com.joehxblog.tagger.android.IntentTagger;
+import com.joehxblog.tagger.databinding.ReceiveActivityBinding;
 
 public class ReceiveActivity extends AppCompatActivity {
 
@@ -19,7 +21,8 @@ public class ReceiveActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_receive);
+
+        ReceiveActivityBinding receiveBinding = DataBindingUtil.setContentView(this, R.layout.receive_activity);
 
         prefs = new AffiliatePreference(this);
 
@@ -27,11 +30,7 @@ public class ReceiveActivity extends AppCompatActivity {
 
         IntentTagger intentTagger = new IntentTagger(receiveIntent);
 
-        final TextView subjectTextView = this.findViewById(R.id.subjectTextView);
-        subjectTextView.setText(intentTagger.getSubject());
-
-        final TextView urlTextView = this.findViewById(R.id.urlTextView);
-        urlTextView.setText(intentTagger.getText());
+        receiveBinding.setTagged(intentTagger);
 
         final Button tagItButton = this.findViewById(R.id.tagItButton);
 
