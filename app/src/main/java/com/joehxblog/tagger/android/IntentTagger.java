@@ -26,6 +26,14 @@ public class IntentTagger {
         activity.startActivity(sendIntent);
     }
 
+    public String getSubject() {
+        return subject;
+    }
+
+    public String getText() {
+        return text;
+    }
+
     private Intent getTaggedSendIntent(String tag) {
         final Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);

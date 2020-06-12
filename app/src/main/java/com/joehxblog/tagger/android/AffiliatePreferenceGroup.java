@@ -8,6 +8,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 
 import com.joehxblog.android.preference.LongClickableEditTextPreference;
+import com.joehxblog.android.text.JoeTextUtils;
 import com.joehxblog.tagger.R;
 
 import java.util.Optional;
@@ -42,7 +43,7 @@ public class AffiliatePreferenceGroup {
         pref.setKey(Optional.ofNullable(tag).orElse("new-tag"));
 
         if (preferences.isDefaultTag(tag)) {
-            pref.setIcon(R.drawable.ic_launcher_background);
+            pref.setIcon(R.drawable.default_tag);
         }
 
         pref.setLongClickListener(v -> setDefaultTag(tag));
@@ -65,16 +66,17 @@ public class AffiliatePreferenceGroup {
         final String text = ((EditTextPreference)pref).getText();
 
         if (TextUtils.isEmpty(text)) {
-            return "Not set";
+
+            return context.getString(R.string.add_new_tag);
         }
 
         return "?tag=" + text;
     }
 
     private boolean onPreferenceChange(final String oldTag, final String newTag) {
-        if (oldTag == null) {
+        if (JoeTextUtils.isTrimmedEmpty(oldTag)) {
             this.preferences.addTag(newTag);
-        } else if (TextUtils.isEmpty(newTag)){
+        } else if (JoeTextUtils.isTrimmedEmpty(newTag)){
             this.preferences.removeTag(oldTag);
         } else {
             this.preferences.replaceTag(oldTag, newTag);

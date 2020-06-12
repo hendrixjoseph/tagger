@@ -27,6 +27,12 @@ public class ReceiveActivity extends AppCompatActivity {
 
         IntentTagger intentTagger = new IntentTagger(receiveIntent);
 
+        final TextView subjectTextView = this.findViewById(R.id.subjectTextView);
+        subjectTextView.setText(intentTagger.getSubject());
+
+        final TextView urlTextView = this.findViewById(R.id.urlTextView);
+        urlTextView.setText(intentTagger.getText());
+
         final Button tagItButton = this.findViewById(R.id.tagItButton);
 
         tagItButton.setOnClickListener(v -> intentTagger.send(this, this.getTag()));

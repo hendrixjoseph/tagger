@@ -5,6 +5,7 @@ import com.joehxblog.mocked.MockSharedPreferences;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.stream.IntStream;
@@ -130,5 +131,25 @@ class AffiliatePreferenceTest {
                 () -> assertTrue(IntStream.range(0, count)
                         .mapToObj(number -> TEST_TAG + number)
                         .noneMatch(this.prefs::isDefaultTag)));
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    @ValueSource(strings = {"", " ", "\t"})
+    void testAddBlankTag(final String tag) {
+        this.prefs.addTag(tag);
+
+        assertTrue(this.prefs.getTags().isEmpty());
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    @ValueSource(strings = {"", " ", "\t"})
+    void testAddBlankDefault(final String tag) {
+        this.prefs.setDefaultTag(tag);
+
+        assertAll(
+                () -> assertTrue(this.prefs.getDefaultTag().isEmpty()),
+                () -> assertTrue(this.prefs.getTags().isEmpty()));
     }
 }

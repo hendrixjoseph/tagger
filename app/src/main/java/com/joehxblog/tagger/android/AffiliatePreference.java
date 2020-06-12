@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.joehxblog.android.preference.Preference;
+import com.joehxblog.android.text.JoeTextUtils;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -41,20 +42,23 @@ public class AffiliatePreference extends Preference {
     }
 
     public void setDefaultTag(String tag) {
-        if (!getTags().contains(tag)) {
-             addTag(tag);
-        }
+        if (!JoeTextUtils.isTrimmedEmpty(tag)) {
+            if (!getTags().contains(tag)) {
+                addTag(tag);
+            }
 
-        this.getSharedPreferences().edit().putString(DEFAULT_TAG_KEY, tag).commit();
+            this.getSharedPreferences().edit().putString(DEFAULT_TAG_KEY, tag).commit();
+        }
     }
 
     public void replaceTag(final String oldTag, final String newTag) {
-        final Set<String> newSet = getTags()
-                .stream()
-                .map(tag -> oldTag.equals(tag) ? newTag : tag)
-                .collect(Collectors.toSet());
+        if(!JoeTextUtils.isTrimmedEmpty(newTag) && !JoeTextUtils.isTrimmedEmpty(oldTag)) {
+            final Set<String> newSet = getTags().stream()
+                    .map(tag -> oldTag.equals(tag) ? newTag : tag)
+                    .collect(Collectors.toSet());
 
-        this.getSharedPreferences().edit().putStringSet(TAGS_KEY, newSet).commit();
+            this.getSharedPreferences().edit().putStringSet(TAGS_KEY, newSet).commit();
+        }
     }
 
     public void removeTag(final String tag) {
@@ -68,10 +72,12 @@ public class AffiliatePreference extends Preference {
     }
 
     public void addTag(final String tag) {
-        add(TAGS_KEY, tag);
+        if(!JoeTextUtils.isTrimmedEmpty(tag)) {
+            add(TAGS_KEY, tag);
 
-        if (getDefaultTag().isEmpty()) {
-            setDefaultTag(tag);
+            if (getDefaultTag().isEmpty()) {
+                setDefaultTag(tag);
+            }
         }
     }
 }
