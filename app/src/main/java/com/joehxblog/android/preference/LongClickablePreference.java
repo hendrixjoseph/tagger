@@ -8,7 +8,7 @@ public interface LongClickablePreference {
 
     default void onBindViewHolder(PreferenceViewHolder holder) {
         View itemView = holder.itemView;
-        itemView.setOnLongClickListener(getLongClickListener()::onLongClick);
+        itemView.setOnLongClickListener(getLongClickListener());
     }
 
     View.OnLongClickListener getLongClickListener();

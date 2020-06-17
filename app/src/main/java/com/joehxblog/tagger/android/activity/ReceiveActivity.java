@@ -2,9 +2,9 @@ package com.joehxblog.tagger.android.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -14,9 +14,10 @@ import com.joehxblog.tagger.android.AffiliatePreference;
 import com.joehxblog.tagger.android.IntentTagger;
 import com.joehxblog.tagger.databinding.ReceiveActivityBinding;
 
-public class ReceiveActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
 
-    private AffiliatePreference prefs;
+public class ReceiveActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -24,42 +25,24 @@ public class ReceiveActivity extends AppCompatActivity {
 
         ReceiveActivityBinding receiveBinding = DataBindingUtil.setContentView(this, R.layout.receive_activity);
 
-        prefs = new AffiliatePreference(this);
-
         final Intent receiveIntent = getIntent();
 
         IntentTagger intentTagger = new IntentTagger(receiveIntent);
 
         receiveBinding.setTagged(intentTagger);
 
-        final Button tagItButton = this.findViewById(R.id.tagItButton);
+        AffiliatePreference prefs = new AffiliatePreference(this);
 
-        tagItButton.setOnClickListener(v -> intentTagger.send(this, this.getTag()));
-    }
+        final Button tagItButton = findViewById(R.id.tagItButton);
 
-    private String getTag() {
-        return prefs.getDefaultTag();
-    }
+        tagItButton.setOnClickListener(v -> intentTagger.send(this, prefs.getDefaultTag()));
 
-    private void setUrlTextView(final Intent receiveIntent) {
-        final String subject = receiveIntent.getStringExtra(Intent.EXTRA_SUBJECT);
-        final String text = receiveIntent.getStringExtra(Intent.EXTRA_TEXT);
-
-        setUrlTextView(subject, text);
-    }
-
-    private void setUrlTextView(final String subject, final String text) {
-        final StringBuilder sb = new StringBuilder();
-
-        if (subject != null && !subject.isEmpty()) {
-            sb.append("<h1>").append(subject).append("</h1>");
-        }
-
-        if (text != null && !text.isEmpty()) {
-            sb.append("<p>").append(text).append("</p>");
-        }
-
-        final TextView textView = this.<TextView>findViewById(R.id.urlTextView);
-        textView.setText(Html.fromHtml(sb.toString()));
+        Spinner spinner = findViewById(R.id.tag_spinner);
+        List<String> tags = new ArrayList<>(prefs.getTags());
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, tags);
+        spinner.setAdapter(adapter);
+        spinner.getSelectedItem().toString();
+        int defaultPosition = adapter.getPosition(prefs.getDefaultTag());
+        spinner.setSelection(defaultPosition);
     }
 }
