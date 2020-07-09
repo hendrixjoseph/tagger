@@ -8,77 +8,77 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="48"
-   height="48"
-   viewBox="0 0 27.09984 27.09984"
-   version="1.1"
-   id="svg8"
-   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
-   sodipodi:docname="tagger-logo.svg"
-   inkscape:export-filename="C:\Users\hendr\git\tagger\app\src\main\res\mipmap-xxxhdpi\tagger_launcher.png"
+   inkscape:export-ydpi="384"
    inkscape:export-xdpi="384"
-   inkscape:export-ydpi="384">
+   inkscape:export-filename="C:\Users\hendr\git\tagger\app\src\main\res\mipmap-xxxhdpi\tagger_launcher.png"
+   sodipodi:docname="tagger-logo.svg"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 27.09984 27.09984"
+   height="48"
+   width="48">
   <defs
      id="defs2">
     <linearGradient
-       id="linearGradient860"
-       inkscape:collect="always">
+       inkscape:collect="always"
+       id="linearGradient860">
       <stop
-         id="stop856"
+         style="stop-color:#f9f9f9;stop-opacity:1"
          offset="0"
-         style="stop-color:#f9f9f9;stop-opacity:1" />
+         id="stop856" />
       <stop
-         id="stop858"
+         style="stop-color:#999999;stop-opacity:1"
          offset="1"
-         style="stop-color:#999999;stop-opacity:1" />
+         id="stop858" />
     </linearGradient>
     <clipPath
-       id="clipPath3597"
-       clipPathUnits="userSpaceOnUse">
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3597">
       <rect
-         y="-1119.6814"
-         x="54.039227"
-         height="20.582436"
-         width="15.348413"
+         style="fill:#000000;fill-opacity:1;stroke:#ff0000;stroke-width:0.137758;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="rect3599"
-         style="fill:#000000;fill-opacity:1;stroke:#ff0000;stroke-width:0.137758;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+         width="15.348413"
+         height="20.582436"
+         x="54.039227"
+         y="-1119.6814" />
     </clipPath>
     <linearGradient
-       gradientTransform="matrix(0.56458,0,0,0.56458,1.1390132,-1132.3674)"
-       gradientUnits="userSpaceOnUse"
-       y2="49.999998"
-       x2="93.517402"
-       y1="49.999998"
-       x1="6.4845054"
-       id="linearGradient862"
+       inkscape:collect="always"
        xlink:href="#linearGradient860"
-       inkscape:collect="always" />
+       id="linearGradient862"
+       x1="6.4845054"
+       y1="49.999998"
+       x2="93.517402"
+       y2="49.999998"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.27278369,0,0,0.27278369,-0.08952886,-0.09133007)" />
   </defs>
   <sodipodi:namedview
-     inkscape:document-rotation="0"
-     inkscape:window-maximized="1"
-     inkscape:window-y="-8"
-     inkscape:window-x="-8"
-     inkscape:window-height="1017"
-     inkscape:window-width="1920"
-     scale-x="0.56458"
-     inkscape:pagecheckerboard="true"
-     inkscape:showpageshadow="true"
-     borderlayer="false"
-     showborder="true"
-     units="px"
-     showgrid="false"
-     inkscape:current-layer="g3614"
-     inkscape:document-units="px"
-     inkscape:cy="16.641954"
-     inkscape:cx="45.819676"
-     inkscape:zoom="5.5611002"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="0.0"
-     borderopacity="1.0"
-     bordercolor="#666666"
+     id="base"
      pagecolor="#ffffff"
-     id="base" />
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="11.019081"
+     inkscape:cx="24"
+     inkscape:cy="24"
+     inkscape:document-units="px"
+     inkscape:current-layer="svg8"
+     showgrid="false"
+     units="px"
+     showborder="true"
+     borderlayer="false"
+     inkscape:showpageshadow="true"
+     inkscape:pagecheckerboard="true"
+     scale-x="0.56458"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:document-rotation="0" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -91,30 +91,20 @@
       </cc:Work>
     </rdf:RDF>
   </metadata>
-  <g
-     transform="translate(0,1131.7497)"
-     id="layer1"
-     inkscape:groupmode="layer"
-     inkscape:label="Layer 1">
-    <g
-       transform="matrix(0.48316322,0,0,0.48316322,-0.63988392,-584.72071)"
-       id="g3614">
-      <path
-         id="path840"
-         style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:url(#linearGradient862);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.590861;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate;stop-color:#000000"
-         d="m 8.8821398,-1115.6417 c -2.0473924,0.012 -3.7785611,1.5082 -3.7866559,3.2838 -9.3e-6,0.012 -9.3e-6,0.012 0,0.012 v 16.4037 c -0.00642,1.7838 1.7296787,3.3003 3.7866559,3.307 h 0.013234 30.5600982 0.01764 c 0.943363,0 1.852537,-0.3121 2.548328,-0.8645 l 10.412753,-8.1963 h 0.0022 c 1.619783,-1.2756 1.619783,-3.6061 0,-4.8817 l -10.42488,-8.2073 c -0.0051,0 -0.01008,-0.011 -0.01543,-0.011 -0.700056,-0.5449 -1.611033,-0.8461 -2.551638,-0.8436 H 8.8953718 8.8821398 Z m 38.3340992,9.245 a 2.2583201,2.2583201 0 0 1 0.03419,0 2.2583201,2.2583201 0 0 1 2.25832,2.2583 2.2583201,2.2583201 0 0 1 -2.25832,2.2583 2.2583201,2.2583201 0 0 1 -2.25832,-2.2583 2.2583201,2.2583201 0 0 1 2.224136,-2.2583 z" />
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:11.0395px;line-height:1.25;font-family:monospace;-inkscape-font-specification:'monospace, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;stroke-width:0.82797"
-         x="12.809175"
-         y="-789.86633"
-         id="text850"
-         transform="scale(0.71812141,1.3925222)"><tspan
-           sodipodi:role="line"
-           id="tspan848"
-           x="12.809175"
-           y="-789.86633"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:11.0395px;font-family:monospace;-inkscape-font-specification:'monospace, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.82797">TAGGER</tspan></text>
-    </g>
-  </g>
+  <path
+     d="m 3.6516568,7.9898699 c -0.9892226,0.01 -1.8256577,0.7287 -1.8295688,1.5866 -4.5e-6,0.01 -4.5e-6,0.01 0,0.01 V 17.51217 c -0.0031,0.8618 0.8357152,1.5945 1.8295688,1.5978 h 0.00639 14.7654832 0.0085 c 0.455797,0 0.895075,-0.1508 1.231255,-0.4177 l 5.031048,-3.9602 h 0.0011 c 0.782618,-0.6163 0.782618,-1.7423 0,-2.3586 L 19.658526,8.4079699 c -0.0025,0 -0.0049,-0.01 -0.0075,-0.01 -0.338241,-0.2633 -0.778391,-0.4088 -1.232855,-0.4076 H 3.65805 3.6516568 Z M 22.173242,12.45667 a 1.0911348,1.0911348 0 0 1 0.01652,0 1.0911348,1.0911348 0 0 1 1.091134,1.0912 1.0911348,1.0911348 0 0 1 -1.091134,1.0911 1.0911348,1.0911348 0 0 1 -1.091135,-1.0911 1.0911348,1.0911348 0 0 1 1.074618,-1.0912 z"
+     style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:url(#linearGradient862);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.285482;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate;stop-color:#000000"
+     id="path840" />
+  <text
+     transform="scale(0.71811713,1.3925305)"
+     id="text850"
+     y="11.309921"
+     x="5.2976756"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.33355px;line-height:1.25;font-family:monospace;-inkscape-font-specification:'monospace, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;stroke-width:0.40002"
+     xml:space="preserve"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.33355px;font-family:monospace;-inkscape-font-specification:'monospace, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.40002"
+       y="11.309921"
+       x="5.2976756"
+       id="tspan848"
+       sodipodi:role="line">TAGGER</tspan></text>
 </svg>
