@@ -4,9 +4,12 @@
 /.idea/*
 /gradle/*
 /app/build
+/app/debug
+/app/release
 .DS_Store
 /build
 /captures
 .externalNativeBuild
 /gradlew
 /gradlew.bat
+
