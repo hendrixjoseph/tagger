@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Tagger</string>
     <string name="app_name_with_version">Tagger v0.0</string>
+    <string name="app_description">Affiliate Link Tagger Android App for Amazon Associates</string>
 
     <!-- Affiliate Preferences -->
     <string name="amazon_affiliate_tags">Amazon Affiliate Tags</string>
