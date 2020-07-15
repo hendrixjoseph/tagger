@@ -17,3 +17,7 @@ Not affiliated or associated with Amazon or Amazon.com in any way. You are still
 # screenshots
 
 ![Settings Activity](/app-store-stuff/settings-activity.png) ![Set Tracking ID](/app-store-stuff/set-tracking-id.png) ![Receive Activity](/app-store-stuff/receive-activity.png)
+
+# example usage
+
+![Example Usage](/app-store-stuff/example-usage.gif)
