@@ -12,7 +12,7 @@ public class AmazonTagger {
     }
 
     public String tag(final String string) {
-        final Pattern pattern = Pattern.compile("(https:\\/\\/www\\.amazon\\.com[^\\s]*)");
+        final Pattern pattern = Pattern.compile("(https:\\/\\/.+?\\.amazon\\.[^\\s]*)");
         final Matcher matcher = pattern.matcher(string);
         final StringBuffer stringBuffer = new StringBuffer();
 

@@ -4,7 +4,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,14 +18,34 @@ class AmazonTaggerTest {
 
     private final AmazonTagger tagger = new AmazonTagger(EXAMPLE_TAG);
 
+    static Stream<Arguments> differentUrls(Function<Object, String> newString) {
+        return urls().map(Arguments::get)
+                     .map(o -> arguments(newString.apply(o[0]),
+                                         newString.apply(o[1])));
+    }
+
     static Stream<Arguments> textWithUrls() {
         final String beforeText = "This is some text before. ";
         final String afterText = " This is some text after.";
 
-        final Function<Object, String> newString = o -> beforeText + o + afterText;
+        return differentUrls(o -> beforeText + o + afterText);
+    }
 
-        return urls().map(args -> arguments(newString.apply(args.get()[0]),
-                                            newString.apply(args.get()[1])));
+    static Stream<Arguments> smileUrls() {
+        return differentUrls(o -> o.toString().replace("https://www", "https://smile"));
+    }
+
+    static Stream<Arguments> longTextWithUrls() {
+        BiFunction<Stream<Arguments>, Integer, String> toString
+                = (s, i) -> s.map(Arguments::get)
+                             .map(o -> o[i])
+                             .map(Object::toString)
+                             .collect(Collectors.joining(" some text "));
+
+        String oldString = toString.apply(urls(), 0);
+        String newString = toString.apply(urls(), 1);
+
+        return Stream.of(arguments(oldString, newString));
     }
 
     static Stream<Arguments> urls() {
@@ -37,7 +59,7 @@ class AmazonTaggerTest {
     }
 
     @ParameterizedTest
-    @MethodSource({"urls","textWithUrls"})
+    @MethodSource({"urls","textWithUrls","longTextWithUrls","smileUrls"})
     void testTag(final String input, final String output) {
         final String tagged = this.tagger.tag(input);
 
