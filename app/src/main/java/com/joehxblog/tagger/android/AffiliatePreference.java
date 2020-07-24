@@ -8,9 +8,10 @@ import com.joehxblog.android.preference.Preference;
 import com.joehxblog.android.text.JoeTextUtils;
 
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class AffiliatePreference extends Preference {
     private static final String DEFAULT_TAG_KEY = "default-tag";
@@ -47,37 +48,56 @@ public class AffiliatePreference extends Preference {
                 addTag(tag);
             }
 
-            this.getSharedPreferences().edit().putString(DEFAULT_TAG_KEY, tag).commit();
+            this.getSharedPreferences().edit().putString(DEFAULT_TAG_KEY, tag).apply();
         }
     }
 
     public void replaceTag(final String oldTag, final String newTag) {
         if(!JoeTextUtils.isTrimmedEmpty(newTag) && !JoeTextUtils.isTrimmedEmpty(oldTag)) {
-            final Set<String> newSet = getTags().stream()
+            final List<String> newSet = getTags().stream()
                     .map(tag -> oldTag.equals(tag) ? newTag : tag)
-                    .collect(Collectors.toSet());
+                    .collect(Collectors.toList());
 
-            this.getSharedPreferences().edit().putStringSet(TAGS_KEY, newSet).commit();
+            putStringSet(newSet);
         }
     }
 
     public void removeTag(final String tag) {
-        final Set<String> newSet = new HashSet<>(getTags());
+        final List<String> newSet = getTags();
         newSet.remove(tag);
-        this.getSharedPreferences().edit().putStringSet(TAGS_KEY, newSet).commit();
+        putStringSet(newSet);
     }
 
-    public Set<String> getTags() {
-        return this.getSharedPreferences().getStringSet(TAGS_KEY, Collections.emptySet());
+    public List<String> getTags() {
+        return this.getSharedPreferences().getStringSet(TAGS_KEY, Collections.emptySet())
+                .stream()
+                .sorted()
+                .map(s -> s.replaceAll("^\\d+ ",""))
+                .collect(Collectors.toList());
     }
 
     public void addTag(final String tag) {
         if(!JoeTextUtils.isTrimmedEmpty(tag)) {
-            add(TAGS_KEY, tag);
+            add(TAGS_KEY, createNumberedName(size(), tag));
 
             if (getDefaultTag().isEmpty()) {
                 setDefaultTag(tag);
             }
         }
+    }
+
+    private int size() {
+        return this.getSharedPreferences().getStringSet(TAGS_KEY, Collections.emptySet()).size();
+    }
+
+    private String createNumberedName(int number, String tag) {
+        return String.format("%02d %s", number, tag);
+    }
+
+    private void putStringSet(List<String> newSet) {
+        Set<String> numberedSet = IntStream.range(0, newSet.size())
+                                           .mapToObj(i -> createNumberedName(i, newSet.get(i)))
+                                           .collect(Collectors.toSet());
+        this.getSharedPreferences().edit().putStringSet(TAGS_KEY, numberedSet).apply();
     }
 }

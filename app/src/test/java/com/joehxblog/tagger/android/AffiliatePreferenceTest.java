@@ -5,6 +5,7 @@ import com.joehxblog.mocked.MockSharedPreferences;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -20,6 +21,10 @@ class AffiliatePreferenceTest {
 
     private AffiliatePreference prefs;
 
+    static IntStream range() {
+        return IntStream.range(0,20);
+    }
+
     @BeforeEach
     void beforeEach() {
         this.prefs = new AffiliatePreference(new MockSharedPreferences());
@@ -31,7 +36,7 @@ class AffiliatePreferenceTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = { 1, 2, 3 })
+    @MethodSource("range")
     void testAddTag(final int count) {
         IntStream.range(0, count)
                 .forEach(number -> this.prefs.addTag(TEST_TAG + number));
