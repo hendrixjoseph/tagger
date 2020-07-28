@@ -2,7 +2,6 @@
 .gradle
 /local.properties
 /.idea/*
-/gradle/*
 /app/build
 /app/debug
 /app/release
@@ -10,6 +9,3 @@
 /build
 /captures
 .externalNativeBuild
-/gradlew
-/gradlew.bat
-
