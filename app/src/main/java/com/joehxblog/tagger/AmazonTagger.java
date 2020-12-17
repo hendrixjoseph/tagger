@@ -5,9 +5,9 @@ import java.util.regex.Pattern;
 
 public class AmazonTagger {
 
-    private String tag;
+    private final String tag;
 
-    public AmazonTagger(String tag) {
+    public AmazonTagger(final String tag) {
         this.tag = tag;
     }
 

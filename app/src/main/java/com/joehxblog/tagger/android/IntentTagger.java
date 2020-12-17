@@ -17,37 +17,37 @@ public class IntentTagger {
         this.receiveIntent = receiveIntent;
     }
 
-    public void send(Activity activity, String tag) {
-        Intent sendIntent = getTaggedSendIntent(tag);
+    public void send(final Activity activity, final String tag) {
+        final Intent sendIntent = getTaggedSendIntent(tag);
 
-        HistoryPreference prefs = new HistoryPreference(activity);
-        prefs.createHistoryItem(subject, text);
+        final HistoryPreference prefs = new HistoryPreference(activity);
+        prefs.createHistoryItem(this.subject, this.text);
 
         activity.startActivity(sendIntent);
     }
 
     public String getSubject() {
-        return subject;
+        return this.subject;
     }
 
     public String getText() {
-        return text;
+        return this.text;
     }
 
-    private Intent getTaggedSendIntent(String tag) {
+    private Intent getTaggedSendIntent(final String tag) {
         final Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtras(receiveIntent);
-        sendIntent.setType(receiveIntent.getType());
+        sendIntent.putExtras(this.receiveIntent);
+        sendIntent.setType(this.receiveIntent.getType());
 
-        if (receiveIntent.getCategories() != null) {
-            sendIntent.getCategories().addAll(receiveIntent.getCategories());
+        if (this.receiveIntent.getCategories() != null) {
+            sendIntent.getCategories().addAll(this.receiveIntent.getCategories());
         }
 
         final AmazonTagger tagger = new AmazonTagger(tag);
 
-        for (final String key : receiveIntent.getExtras().keySet()) {
-            final Object extra = receiveIntent.getExtras().get(key);
+        for (final String key : this.receiveIntent.getExtras().keySet()) {
+            final Object extra = this.receiveIntent.getExtras().get(key);
 
             if (extra instanceof String) {
                 final String string = (String) extra;

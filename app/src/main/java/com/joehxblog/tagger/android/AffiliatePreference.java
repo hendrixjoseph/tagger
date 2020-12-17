@@ -25,8 +25,8 @@ public class AffiliatePreference extends Preference {
         super(sharedPreferences);
     }
 
-    public boolean isDefaultTag(String tag) {
-        String defaultTag = getDefaultTag();
+    public boolean isDefaultTag(final String tag) {
+        final String defaultTag = getDefaultTag();
 
         if (TextUtils.isEmpty(tag)) {
             return false;
@@ -42,7 +42,7 @@ public class AffiliatePreference extends Preference {
         return this.getSharedPreferences().getString(DEFAULT_TAG_KEY, "");
     }
 
-    public void setDefaultTag(String tag) {
+    public void setDefaultTag(final String tag) {
         if (!JoeTextUtils.isTrimmedEmpty(tag)) {
             if (!getTags().contains(tag)) {
                 addTag(tag);
@@ -90,12 +90,12 @@ public class AffiliatePreference extends Preference {
         return this.getSharedPreferences().getStringSet(TAGS_KEY, Collections.emptySet()).size();
     }
 
-    private String createNumberedName(int number, String tag) {
+    private String createNumberedName(final int number, final String tag) {
         return String.format("%02d %s", number, tag);
     }
 
-    private void putStringSet(List<String> newSet) {
-        Set<String> numberedSet = IntStream.range(0, newSet.size())
+    private void putStringSet(final List<String> newSet) {
+        final Set<String> numberedSet = IntStream.range(0, newSet.size())
                                            .mapToObj(i -> createNumberedName(i, newSet.get(i)))
                                            .collect(Collectors.toSet());
         this.getSharedPreferences().edit().putStringSet(TAGS_KEY, numberedSet).apply();

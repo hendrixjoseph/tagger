@@ -42,7 +42,7 @@ public class AffiliatePreferenceGroup {
         pref.setDefaultValue(tag);
         pref.setKey(Optional.ofNullable(tag).orElse("new-tag"));
 
-        if (preferences.isDefaultTag(tag)) {
+        if (this.preferences.isDefaultTag(tag)) {
             pref.setIcon(R.drawable.default_tag);
         }
 
@@ -55,8 +55,8 @@ public class AffiliatePreferenceGroup {
         return pref;
     }
 
-    private boolean setDefaultTag(String tag) {
-        preferences.setDefaultTag(tag);
+    private boolean setDefaultTag(final String tag) {
+        this.preferences.setDefaultTag(tag);
         refresh();
 
         return true;
@@ -67,7 +67,7 @@ public class AffiliatePreferenceGroup {
 
         if (TextUtils.isEmpty(text)) {
 
-            return context.getString(R.string.add_new_tag);
+            return this.context.getString(R.string.add_new_tag);
         }
 
         return "?tag=" + text;

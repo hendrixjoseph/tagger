@@ -17,16 +17,17 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         final PreferenceCategory affiliateTags = findPreference("amazon-affiliate-tags");
 
-        AffiliatePreferenceGroup affiliatePreferenceGroup = new AffiliatePreferenceGroup(getContext(), affiliateTags);
+        final AffiliatePreferenceGroup affiliatePreferenceGroup = new AffiliatePreferenceGroup(getContext(), affiliateTags);
         affiliatePreferenceGroup.create();
     }
 
+    @Override
     public void onStart() {
         super.onStart();
 
         final PreferenceCategory history = findPreference("sharing-history");
 
-        HistoryPreferenceGroup historyPreferenceGroup = new HistoryPreferenceGroup(getContext(), history);
+        final HistoryPreferenceGroup historyPreferenceGroup = new HistoryPreferenceGroup(getContext(), history);
         historyPreferenceGroup.create();
     }
 }

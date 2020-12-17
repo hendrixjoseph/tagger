@@ -51,7 +51,7 @@ public class History implements Comparable<History> {
     }
 
     @Override
-    public int compareTo(History o) {
+    public int compareTo(final History o) {
         if (o == null) {
             return -1;
         } else {

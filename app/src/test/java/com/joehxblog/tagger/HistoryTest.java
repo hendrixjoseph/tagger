@@ -3,7 +3,9 @@ package com.joehxblog.tagger;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HistoryTest {
 
@@ -12,8 +14,8 @@ class HistoryTest {
 
     @Test
     void testJsonConstructor() throws JSONException {
-        History history = new History(TEST_TITLE, TEST_URL);
-        History fromJsonHistory = new History(history.toString());
+        final History history = new History(TEST_TITLE, TEST_URL);
+        final History fromJsonHistory = new History(history.toString());
 
         assertAll(() -> assertEquals(TEST_TITLE, fromJsonHistory.getTitle()),
                   () -> assertEquals(TEST_URL, fromJsonHistory.getUrl()));
@@ -21,14 +23,14 @@ class HistoryTest {
 
     @Test
     void testComparison() throws InterruptedException {
-        History history = new History(TEST_TITLE, TEST_URL);
+        final History history = new History(TEST_TITLE, TEST_URL);
         Thread.sleep(10);
-        History history1 = new History(TEST_TITLE, TEST_URL);
+        final History history1 = new History(TEST_TITLE, TEST_URL);
 
         assertCompare(history1, history);
     }
 
-    void assertCompare(Comparable first, Comparable second) {
+    void assertCompare(final Comparable first, final Comparable second) {
         assertAll(() -> assertTrue(first.compareTo(second) < 0),
                   () -> assertTrue(second.compareTo(first) > 0));
     }

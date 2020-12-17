@@ -18,7 +18,7 @@ class AmazonTaggerTest {
 
     private final AmazonTagger tagger = new AmazonTagger(EXAMPLE_TAG);
 
-    static Stream<Arguments> differentUrls(Function<Object, String> newString) {
+    static Stream<Arguments> differentUrls(final Function<Object, String> newString) {
         return urls().map(Arguments::get)
                      .map(o -> arguments(newString.apply(o[0]),
                                          newString.apply(o[1])));
@@ -36,14 +36,14 @@ class AmazonTaggerTest {
     }
 
     static Stream<Arguments> longTextWithUrls() {
-        BiFunction<Stream<Arguments>, Integer, String> toString
+        final BiFunction<Stream<Arguments>, Integer, String> toString
                 = (s, i) -> s.map(Arguments::get)
                              .map(o -> o[i])
                              .map(Object::toString)
                              .collect(Collectors.joining(" some text "));
 
-        String oldString = toString.apply(urls(), 0);
-        String newString = toString.apply(urls(), 1);
+        final String oldString = toString.apply(urls(), 0);
+        final String newString = toString.apply(urls(), 1);
 
         return Stream.of(arguments(oldString, newString));
     }
