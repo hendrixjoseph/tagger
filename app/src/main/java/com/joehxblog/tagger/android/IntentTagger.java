@@ -15,7 +15,7 @@ public class IntentTagger extends BaseObservable {
     private final String text;
     private final Intent receiveIntent;
 
-    private String tag = new String();
+    private String tag;
 
     public IntentTagger(final Intent receiveIntent) {
         this.subject = receiveIntent.getStringExtra(Intent.EXTRA_SUBJECT);
@@ -23,8 +23,8 @@ public class IntentTagger extends BaseObservable {
         this.receiveIntent = receiveIntent;
     }
 
-    public void send(final Activity activity, final String tag) {
-        final Intent sendIntent = getTaggedSendIntent(tag);
+    public void send(final Activity activity) {
+        final Intent sendIntent = getTaggedSendIntent();
 
         final HistoryPreference prefs = new HistoryPreference(activity);
         prefs.createHistoryItem(this.subject, this.text);
@@ -55,7 +55,7 @@ public class IntentTagger extends BaseObservable {
         return tagger.tag(this.text);
     }
 
-    private Intent getTaggedSendIntent(final String tag) {
+    private Intent getTaggedSendIntent() {
         final Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtras(this.receiveIntent);

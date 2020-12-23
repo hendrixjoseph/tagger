@@ -38,7 +38,7 @@ public class ReceiveActivity extends AppCompatActivity {
         });
 
         final Button tagItButton = findViewById(R.id.tagItButton);
-        tagItButton.setOnClickListener(v -> intentTagger.send(this, spinner.getSelectedItem().toString()));
+        tagItButton.setOnClickListener(v -> intentTagger.send(this));
     }
 
     private IntentTagger initIntentTagger() {
