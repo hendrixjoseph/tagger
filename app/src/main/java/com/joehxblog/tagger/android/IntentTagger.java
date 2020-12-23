@@ -3,13 +3,19 @@ package com.joehxblog.tagger.android;
 import android.app.Activity;
 import android.content.Intent;
 
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+import androidx.databinding.library.baseAdapters.BR;
+
 import com.joehxblog.tagger.AmazonTagger;
 
-public class IntentTagger {
+public class IntentTagger extends BaseObservable {
 
     private final String subject;
     private final String text;
     private final Intent receiveIntent;
+
+    private String tag = new String();
 
     public IntentTagger(final Intent receiveIntent) {
         this.subject = receiveIntent.getStringExtra(Intent.EXTRA_SUBJECT);
@@ -32,6 +38,21 @@ public class IntentTagger {
 
     public String getText() {
         return this.text;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+        this.notifyPropertyChanged(BR.tagged);
+    }
+
+//    public void setTagged(String tagged) {
+//
+//    }
+
+    @Bindable
+    public String getTagged() {
+        final AmazonTagger tagger = new AmazonTagger(tag);
+        return tagger.tag(this.text);
     }
 
     private Intent getTaggedSendIntent(final String tag) {

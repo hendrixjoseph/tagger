@@ -69,5 +69,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/urlTextView" />
 
+    <TextView
+        android:id="@+id/taggedUrlTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:text="@{tagged.tagged}"
+        android:autoLink="web"
+        android:linksClickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tagItButton" />
+
 </LinearLayout >
 </layout>
