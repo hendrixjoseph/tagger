@@ -13,16 +13,16 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class AffiliatePreference extends Preference {
+public class AffiliatePreference extends Preference<String> {
     private static final String DEFAULT_TAG_KEY = "default-tag";
     private static final String TAGS_KEY = "tags";
 
     public AffiliatePreference(final Context context) {
-        super(context);
+        super(context, TAGS_KEY);
     }
 
     public AffiliatePreference(final SharedPreferences sharedPreferences) {
-        super(sharedPreferences);
+        super(sharedPreferences, TAGS_KEY);
     }
 
     public boolean isDefaultTag(final String tag) {
@@ -78,7 +78,7 @@ public class AffiliatePreference extends Preference {
 
     public void addTag(final String tag) {
         if(!JoeTextUtils.isTrimmedEmpty(tag)) {
-            add(TAGS_KEY, createNumberedName(size(), tag));
+            add(createNumberedName(size(), tag));
 
             if (getDefaultTag().isEmpty()) {
                 setDefaultTag(tag);

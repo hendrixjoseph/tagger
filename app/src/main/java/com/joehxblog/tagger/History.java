@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class History implements Comparable<History> {
     private static final String DATETIME_KEY = "datetime";
@@ -15,8 +16,8 @@ public class History implements Comparable<History> {
     private final String url;
 
     public History(final String title, final String url) {
-        this.title = title;
-        this.url = url;
+        this.title = Objects.requireNonNull(title);
+        this.url = Objects.requireNonNull(url);
         this.datetime = new Date().getTime();
     }
 
@@ -57,5 +58,22 @@ public class History implements Comparable<History> {
         } else {
             return (int) (o.datetime - this.datetime);
         }
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final History history = (History) o;
+        return this.datetime == history.datetime && this.title.equals(history.title) && this.url.equals(history.url);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.datetime, this.title, this.url);
     }
 }

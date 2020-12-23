@@ -12,20 +12,24 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class HistoryPreference extends Preference {
+public class HistoryPreference extends Preference<History> {
     private static final String HISTORY_KEY = "history";
 
     public HistoryPreference(final Context context) {
-        super(context);
+        super(context, HISTORY_KEY);
     }
 
     public HistoryPreference(final SharedPreferences sharedPreferences) {
-        super(sharedPreferences);
+        super(sharedPreferences, HISTORY_KEY);
     }
 
     public void createHistoryItem(final String title, final String url) {
         final History newItem = new History(title, url);
-        add(HISTORY_KEY, newItem.toString());
+        add(newItem);
+    }
+
+    public void deleteHistoryItem(History history) {
+        delete(history);
     }
 
     public void clearHistory() {

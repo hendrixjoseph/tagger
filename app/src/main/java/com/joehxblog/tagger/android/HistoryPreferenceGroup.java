@@ -6,6 +6,7 @@ import android.content.Intent;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 
+import com.joehxblog.android.preference.LongClickablePlainOldPreference;
 import com.joehxblog.android.preference.OkCancelDialogPreference;
 import com.joehxblog.tagger.History;
 import com.joehxblog.tagger.R;
@@ -53,6 +54,13 @@ public class HistoryPreferenceGroup {
         return pref;
     }
 
+    private boolean deleteHistoryItem(History history) {
+        preferences.deleteHistoryItem(history);
+        create();
+
+        return true;
+    }
+
     private Preference createEmptyHistoryItem() {
         final Preference pref = new Preference(this.context);
         pref.setTitle(R.string.no_history_yet);
@@ -62,7 +70,7 @@ public class HistoryPreferenceGroup {
     }
 
     private Preference createHistoryItem(final History history) {
-        final Preference pref = new Preference(this.context);
+        final LongClickablePlainOldPreference pref = new LongClickablePlainOldPreference(this.context);
         pref.setTitle(history.getTitle());
         pref.setSummary(history.getUrl());
 
@@ -74,6 +82,8 @@ public class HistoryPreferenceGroup {
         intent.putExtra(ReceiveActivity.SAVE, false);
 
         pref.setIntent(intent);
+
+        pref.setLongClickListener(v -> deleteHistoryItem(history));
 
         return pref;
     }
