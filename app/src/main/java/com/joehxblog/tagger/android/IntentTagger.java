@@ -40,7 +40,7 @@ public class IntentTagger extends BaseObservable {
         return this.text;
     }
 
-    public void setTag(String tag) {
+    public void setTag(final String tag) {
         this.tag = tag;
         this.notifyPropertyChanged(BR.tagged);
     }
@@ -51,7 +51,7 @@ public class IntentTagger extends BaseObservable {
 
     @Bindable
     public String getTagged() {
-        final AmazonTagger tagger = new AmazonTagger(tag);
+        final AmazonTagger tagger = new AmazonTagger(this.tag);
         return tagger.tag(this.text);
     }
 
@@ -65,7 +65,7 @@ public class IntentTagger extends BaseObservable {
             sendIntent.getCategories().addAll(this.receiveIntent.getCategories());
         }
 
-        final AmazonTagger tagger = new AmazonTagger(tag);
+        final AmazonTagger tagger = new AmazonTagger(this.tag);
 
         for (final String key : this.receiveIntent.getExtras().keySet()) {
             final Object extra = this.receiveIntent.getExtras().get(key);
