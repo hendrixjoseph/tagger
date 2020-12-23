@@ -18,6 +18,8 @@ import com.joehxblog.tagger.databinding.ReceiveActivityBinding;
 
 public class ReceiveActivity extends AppCompatActivity {
 
+    public static final String SAVE = "com.joehxblog.save";
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

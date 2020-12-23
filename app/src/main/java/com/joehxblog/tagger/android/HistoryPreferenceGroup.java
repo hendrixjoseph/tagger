@@ -71,6 +71,7 @@ public class HistoryPreferenceGroup {
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_SUBJECT, history.getTitle());
         intent.putExtra(Intent.EXTRA_TEXT, history.getUrl());
+        intent.putExtra(ReceiveActivity.SAVE, false);
 
         pref.setIntent(intent);
 
