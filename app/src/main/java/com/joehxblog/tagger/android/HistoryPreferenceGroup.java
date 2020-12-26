@@ -48,6 +48,9 @@ public class HistoryPreferenceGroup {
         pref.setDialogTitle(R.string.confirm_clear_history);
         pref.setSummary(R.string.clear_history);
 
+        pref.setPositiveButtonText(R.string.yes);
+        pref.setNegativeButtonText(R.string.no);
+
         pref.setPositiveListener((d, i) ->  {
             this.preferences.clearHistory();
             history.removeAll();
