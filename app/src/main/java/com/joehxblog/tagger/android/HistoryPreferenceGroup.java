@@ -1,7 +1,10 @@
 package com.joehxblog.tagger.android;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.text.Html;
+import android.text.Spanned;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
@@ -54,6 +57,20 @@ public class HistoryPreferenceGroup {
         return pref;
     }
 
+    private boolean askToDeleteHistoryItem(History history) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.context);
+
+        Spanned message = Html.fromHtml("<b>" + history.getTitle() + "</b><br /><br />" + history.getUrl(), 0);
+
+        builder.setMessage(message)
+                .setTitle(R.string.confirm_delete_history_item)
+                .setPositiveButton(R.string.yes, (d, i) -> deleteHistoryItem(history))
+                .setNegativeButton(R.string.no, (d, i) -> {})
+                .show();
+
+        return true;
+    }
+
     private boolean deleteHistoryItem(History history) {
         preferences.deleteHistoryItem(history);
         create();
@@ -83,7 +100,7 @@ public class HistoryPreferenceGroup {
 
         pref.setIntent(intent);
 
-        pref.setLongClickListener(v -> deleteHistoryItem(history));
+        pref.setLongClickListener(v -> askToDeleteHistoryItem(history));
 
         return pref;
     }
