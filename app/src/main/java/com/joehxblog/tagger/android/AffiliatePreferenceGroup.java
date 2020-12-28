@@ -37,7 +37,13 @@ public class AffiliatePreferenceGroup {
         final LongClickableEditTextPreference pref = new LongClickableEditTextPreference(this.context);
         pref.setPersistent(false);
         pref.setTitle(R.string.tracking_id);
-        pref.setDialogTitle(R.string.set_tracking_id);
+
+        if (tag == null) {
+            pref.setDialogTitle(R.string.add_tracking_id);
+        } else {
+            pref.setDialogTitle(R.string.set_tracking_id);
+        }
+
         pref.setSummary(tag);
         pref.setDefaultValue(tag);
         pref.setKey(Optional.ofNullable(tag).orElse("new-tag"));

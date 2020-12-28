@@ -7,6 +7,7 @@
     <string name="amazon_affiliate_tags">Amazon Affiliate Tags</string>
     <string name="tracking_id">Tracking ID</string>
     <string name="set_tracking_id">Set Tracking ID</string>
+    <string name="add_tracking_id">Add Tracking ID</string>
     <string name="add_new_tag">Add new tag</string>
 
     <!-- History Preferences -->
@@ -19,6 +20,8 @@
     <!-- Yes/No Confirmations -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 
     <!-- Receive Activity -->
     <string name="tagit_button">TagIt!</string>
