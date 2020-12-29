@@ -77,6 +77,7 @@ public class ReceiveActivity extends AppCompatActivity {
 
         final ArrayAdapter<String> adapter = (ArrayAdapter<String>) this.spinner.getAdapter();
         adapter.add(tag);
+        adapter.notifyDataSetChanged();
         final int newPosition = adapter.getPosition(tag);
         this.spinner.setSelection(newPosition);
         this.intentTagger.setTag(tag);
