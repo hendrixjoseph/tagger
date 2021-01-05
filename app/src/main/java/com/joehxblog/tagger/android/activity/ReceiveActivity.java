@@ -1,12 +1,11 @@
 package com.joehxblog.tagger.android.activity;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -74,10 +73,11 @@ public class ReceiveActivity extends AppCompatActivity {
                 .setNegativeButton(R.string.cancel, (d, i) -> setTag(this.intentTagger.getTag()))
                 .create();
 
-        dialog.setOnShowListener(d -> {
-            final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
-        });
+        //input.setOnFocusChangeListener((l,d) ->
+            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        //);
+
+        input.requestFocus();
 
         dialog.show();
     }
