@@ -6,7 +6,7 @@
     <!-- Affiliate Preferences -->
     <string name="amazon_affiliate_tags">Amazon Affiliate Tags</string>
     <string name="tracking_id">Tracking ID</string>
-    <string name="set_tracking_id">Set Tracking ID</string>
+    <string name="set_tracking_id">Set Tracking ID (clear text to delete)</string>
     <string name="add_tracking_id">Add Tracking ID</string>
     <string name="add_new_tag">Add new tag</string>
 

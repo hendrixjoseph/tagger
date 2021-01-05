@@ -51,6 +51,10 @@ public class IntentTagger extends BaseObservable {
         this.notifyPropertyChanged(BR.tagged);
     }
 
+    public String getTag() {
+        return this.tag;
+    }
+
     @Bindable
     public String getTagged() {
         final AmazonTagger tagger = new AmazonTagger(this.tag);

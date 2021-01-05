@@ -1,10 +1,12 @@
 package com.joehxblog.tagger.android.activity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,19 +23,19 @@ import com.joehxblog.tagger.databinding.ReceiveActivityBinding;
 
 public class ReceiveActivity extends AppCompatActivity {
 
-
     public static final String SAVE = "com.joehxblog.save";
 
     private IntentTagger intentTagger;
     private Spinner spinner;
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
-        intentTagger = initIntentTagger();
-        spinner = initSpinner();
+        this.intentTagger = initIntentTagger();
+        this.spinner = initSpinner();
 
         this.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -63,22 +65,34 @@ public class ReceiveActivity extends AppCompatActivity {
 
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setFocusableInTouchMode(true);
+        input.setFocusable(true);
 
-        builder.setView(input)
+        final AlertDialog dialog = builder.setView(input)
                 .setTitle(R.string.add_tracking_id)
                 .setPositiveButton(R.string.ok, (d, i) -> addNewTag(input.getText().toString()))
-                .setNegativeButton(R.string.cancel, (d, i) -> {})
-                .show();
+                .setNegativeButton(R.string.cancel, (d, i) -> setTag(this.intentTagger.getTag()))
+                .create();
+
+        dialog.setOnShowListener(d -> {
+            final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
+        });
+
+        dialog.show();
     }
 
     private void addNewTag(final String tag) {
         final AffiliatePreference pref = new AffiliatePreference(this);
         pref.addTag(tag);
 
-        final ArrayAdapter<String> adapter = (ArrayAdapter<String>) this.spinner.getAdapter();
-        adapter.add(tag);
-        adapter.notifyDataSetChanged();
-        final int newPosition = adapter.getPosition(tag);
+        this.adapter.add(tag);
+        this.adapter.notifyDataSetChanged();
+        setTag(tag);
+    }
+
+    private void setTag(final String tag) {
+        final int newPosition = this.adapter.getPosition(tag);
         this.spinner.setSelection(newPosition);
         this.intentTagger.setTag(tag);
     }
@@ -98,11 +112,11 @@ public class ReceiveActivity extends AppCompatActivity {
         final AffiliatePreference prefs = new AffiliatePreference(this);
 
         final Spinner spinner = findViewById(R.id.tag_spinner);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, prefs.getTags());
-        adapter.add(this.getResources().getString(R.string.add_new_tag));
-        spinner.setAdapter(adapter);
+        this.adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, prefs.getTags());
+        this.adapter.add(this.getResources().getString(R.string.add_new_tag));
+        spinner.setAdapter(this.adapter);
 
-        final int defaultPosition = adapter.getPosition(prefs.getDefaultTag());
+        final int defaultPosition = this.adapter.getPosition(prefs.getDefaultTag());
         spinner.setSelection(defaultPosition);
 
         return spinner;
