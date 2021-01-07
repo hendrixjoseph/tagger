@@ -74,11 +74,9 @@ public class HistoryPreferenceGroup {
         return true;
     }
 
-    private boolean deleteHistoryItem(History history) {
+    private void deleteHistoryItem(History history) {
         preferences.deleteHistoryItem(history);
         create();
-
-        return true;
     }
 
     private Preference createEmptyHistoryItem() {

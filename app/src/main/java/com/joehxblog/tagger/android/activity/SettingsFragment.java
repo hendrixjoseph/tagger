@@ -14,16 +14,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(final Bundle savedInstanceState, final String rootKey) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
         final PreferenceCategory affiliateTags = findPreference("amazon-affiliate-tags");
 
         final AffiliatePreferenceGroup affiliatePreferenceGroup = new AffiliatePreferenceGroup(getContext(), affiliateTags);
-        affiliatePreferenceGroup.create();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
+        affiliatePreferenceGroup.update();
 
         final PreferenceCategory history = findPreference("sharing-history");
 

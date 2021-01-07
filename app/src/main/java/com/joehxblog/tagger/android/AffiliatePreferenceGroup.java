@@ -33,6 +33,11 @@ public class AffiliatePreferenceGroup {
         this.affiliate.addPreference(createAssociateTagPreference(null));
     }
 
+    public void update() {
+        this.affiliate.removeAll();
+        this.create();
+    }
+
     private Preference createAssociateTagPreference(final String tag) {
         final LongClickableEditTextPreference pref = new LongClickableEditTextPreference(this.context);
         pref.setPersistent(false);

@@ -73,10 +73,7 @@ public class ReceiveActivity extends AppCompatActivity {
                 .setNegativeButton(R.string.cancel, (d, i) -> setTag(this.intentTagger.getTag()))
                 .create();
 
-        //input.setOnFocusChangeListener((l,d) ->
-            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        //);
-
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         input.requestFocus();
 
         dialog.show();
@@ -86,7 +83,7 @@ public class ReceiveActivity extends AppCompatActivity {
         final AffiliatePreference pref = new AffiliatePreference(this);
         pref.addTag(tag);
 
-        this.adapter.add(tag);
+        this.adapter.insert(tag, 0);
         this.adapter.notifyDataSetChanged();
         setTag(tag);
     }
