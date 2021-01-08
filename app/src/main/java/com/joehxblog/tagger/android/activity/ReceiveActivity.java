@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.joehxblog.android.text.JoeTextUtils;
 import com.joehxblog.tagger.R;
 import com.joehxblog.tagger.android.AffiliatePreference;
 import com.joehxblog.tagger.android.IntentTagger;
@@ -73,6 +75,23 @@ public class ReceiveActivity extends AppCompatActivity {
                 .setNegativeButton(R.string.cancel, (d, i) -> setTag(this.intentTagger.getTag()))
                 .create();
 
+        input.setOnEditorActionListener((v,a,e) -> {
+            if (a == EditorInfo.IME_ACTION_DONE) {
+                String tag = input.getText().toString();
+
+                if (!JoeTextUtils.isTrimmedEmpty(tag)) {
+                    addNewTag(tag);
+                } else {
+                    setTag(this.intentTagger.getTag());
+                }
+
+                dialog.dismiss();
+                return true;
+            }
+
+            return false;
+        });
+
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         input.requestFocus();
 
@@ -105,7 +124,7 @@ public class ReceiveActivity extends AppCompatActivity {
         return intentTagger;
     }
 
-    private Spinner initSpinner() {
+    private  Spinner initSpinner() {
         final AffiliatePreference prefs = new AffiliatePreference(this);
 
         final Spinner spinner = findViewById(R.id.tag_spinner);
