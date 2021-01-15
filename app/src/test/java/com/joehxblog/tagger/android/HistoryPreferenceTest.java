@@ -11,6 +11,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class HistoryPreferenceTest {
 
@@ -53,5 +55,17 @@ class HistoryPreferenceTest {
 
         assertEquals(TEST_TITLE, history.getTitle());
         assertEquals(TEST_URL, history.getUrl());
+    }
+
+    @Test
+    void testDeleteHistoryItem() {
+        this.prefs.createHistoryItem(TEST_TITLE,TEST_URL);
+        final History history = this.prefs.getHistory().get(0);
+
+        assertFalse(this.prefs.getHistory().isEmpty());
+
+        this.prefs.deleteHistoryItem(history);
+
+        assertTrue(this.prefs.getHistory().isEmpty());
     }
 }

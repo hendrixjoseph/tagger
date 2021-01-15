@@ -68,6 +68,7 @@ public class ReceiveActivity extends AppCompatActivity {
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         input.setFocusableInTouchMode(true);
         input.setFocusable(true);
+        // margin left/start/right/end should be 20dp
 
         final AlertDialog dialog = builder.setView(input)
                 .setTitle(R.string.add_tracking_id)
